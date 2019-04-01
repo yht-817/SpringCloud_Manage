@@ -1,0 +1,41 @@
+server:
+  port: 8012
+spring:
+  http:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+      enabled: true
+  application:
+    name: user-client
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      profile: prod
+eureka:
+  client:
+    service-url:
+      defaultZone: http://172.16.24.105:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+ribbon:
+  eureka:
+    enabled: true
+  #：请求处理的超时时间
+  ReadTimeout: 60000
+  #：请求连接的超时时间
+  ConnectTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+

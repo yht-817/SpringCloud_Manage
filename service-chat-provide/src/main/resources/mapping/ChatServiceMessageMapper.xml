@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.chat.server.dao.ChatServiceMessageMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.chat.bean.ChatServiceMessage">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="send_name" jdbcType="VARCHAR" property="sendName" />
+    <result column="notice_type" jdbcType="VARCHAR" property="noticeType" />
+    <result column="send_title" jdbcType="VARCHAR" property="sendTitle" />
+    <result column="send_date" jdbcType="TIMESTAMP" property="sendDate" />
+    <result column="send_text" jdbcType="VARCHAR" property="sendText" />
+    <result column="send_project1" jdbcType="VARCHAR" property="sendProject1" />
+    <result column="send_project2" jdbcType="VARCHAR" property="sendProject2" />
+    <result column="send_url" jdbcType="VARCHAR" property="sendUrl" />
+    <result column="service_no" jdbcType="VARCHAR" property="serviceNo" />
+    <result column="read_state" jdbcType="VARCHAR" property="readState" />
+    <result column="read_date" jdbcType="TIMESTAMP" property="readDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_no, send_name, notice_type, send_title, send_date, send_text, send_project1, 
+    send_project2, send_url, service_no, read_state, read_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from chat_service_message
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from chat_service_message
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.chat.bean.ChatServiceMessage">
+    insert into chat_service_message (id, user_no, send_name, 
+      notice_type, send_title, send_date, 
+      send_text, send_project1, send_project2, 
+      send_url, service_no, read_state, 
+      read_date)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{sendName,jdbcType=VARCHAR}, 
+      #{noticeType,jdbcType=VARCHAR}, #{sendTitle,jdbcType=VARCHAR}, #{sendDate,jdbcType=TIMESTAMP}, 
+      #{sendText,jdbcType=VARCHAR}, #{sendProject1,jdbcType=VARCHAR}, #{sendProject2,jdbcType=VARCHAR}, 
+      #{sendUrl,jdbcType=VARCHAR}, #{serviceNo,jdbcType=VARCHAR}, #{readState,jdbcType=VARCHAR}, 
+      #{readDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.chat.bean.ChatServiceMessage">
+    insert into chat_service_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="sendName != null">
+        send_name,
+      </if>
+      <if test="noticeType != null">
+        notice_type,
+      </if>
+      <if test="sendTitle != null">
+        send_title,
+      </if>
+      <if test="sendDate != null">
+        send_date,
+      </if>
+      <if test="sendText != null">
+        send_text,
+      </if>
+      <if test="sendProject1 != null">
+        send_project1,
+      </if>
+      <if test="sendProject2 != null">
+        send_project2,
+      </if>
+      <if test="sendUrl != null">
+        send_url,
+      </if>
+      <if test="serviceNo != null">
+        service_no,
+      </if>
+      <if test="readState != null">
+        read_state,
+      </if>
+      <if test="readDate != null">
+        read_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendName != null">
+        #{sendName,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeType != null">
+        #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTitle != null">
+        #{sendTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null">
+        #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendText != null">
+        #{sendText,jdbcType=VARCHAR},
+      </if>
+      <if test="sendProject1 != null">
+        #{sendProject1,jdbcType=VARCHAR},
+      </if>
+      <if test="sendProject2 != null">
+        #{sendProject2,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUrl != null">
+        #{sendUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceNo != null">
+        #{serviceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="readState != null">
+        #{readState,jdbcType=VARCHAR},
+      </if>
+      <if test="readDate != null">
+        #{readDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.chat.bean.ChatServiceMessage">
+    update chat_service_message
+    <set>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendName != null">
+        send_name = #{sendName,jdbcType=VARCHAR},
+      </if>
+      <if test="noticeType != null">
+        notice_type = #{noticeType,jdbcType=VARCHAR},
+      </if>
+      <if test="sendTitle != null">
+        send_title = #{sendTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null">
+        send_date = #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendText != null">
+        send_text = #{sendText,jdbcType=VARCHAR},
+      </if>
+      <if test="sendProject1 != null">
+        send_project1 = #{sendProject1,jdbcType=VARCHAR},
+      </if>
+      <if test="sendProject2 != null">
+        send_project2 = #{sendProject2,jdbcType=VARCHAR},
+      </if>
+      <if test="sendUrl != null">
+        send_url = #{sendUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceNo != null">
+        service_no = #{serviceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="readState != null">
+        read_state = #{readState,jdbcType=VARCHAR},
+      </if>
+      <if test="readDate != null">
+        read_date = #{readDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.chat.bean.ChatServiceMessage">
+    update chat_service_message
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      send_name = #{sendName,jdbcType=VARCHAR},
+      notice_type = #{noticeType,jdbcType=VARCHAR},
+      send_title = #{sendTitle,jdbcType=VARCHAR},
+      send_date = #{sendDate,jdbcType=TIMESTAMP},
+      send_text = #{sendText,jdbcType=VARCHAR},
+      send_project1 = #{sendProject1,jdbcType=VARCHAR},
+      send_project2 = #{sendProject2,jdbcType=VARCHAR},
+      send_url = #{sendUrl,jdbcType=VARCHAR},
+      service_no = #{serviceNo,jdbcType=VARCHAR},
+      read_state = #{readState,jdbcType=VARCHAR},
+      read_date = #{readDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryPageChatServiceMessage" resultType="map">
+    select
+    <include refid="Base_Column_List" />
+    from chat_service_message
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    ORDER BY send_date DESC
+    <if test="size != 0">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="findByServiceNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat_service_message
+    where service_no = #{serviceNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

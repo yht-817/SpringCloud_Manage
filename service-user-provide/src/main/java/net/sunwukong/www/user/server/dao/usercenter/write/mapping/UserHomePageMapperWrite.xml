@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.write.UserHomePageMapperWrite" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserHomePage" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="self_evaluation" property="selfEvaluation" jdbcType="VARCHAR" />
+    <result column="home_photo1" property="homePhoto1" jdbcType="VARCHAR" />
+    <result column="home_photo2" property="homePhoto2" jdbcType="VARCHAR" />
+    <result column="home_photo3" property="homePhoto3" jdbcType="VARCHAR" />
+    <result column="home_photo4" property="homePhoto4" jdbcType="VARCHAR" />
+    <result column="home_photo5" property="homePhoto5" jdbcType="VARCHAR" />
+    <result column="home_photo6" property="homePhoto6" jdbcType="VARCHAR" />
+    <result column="home_photo7" property="homePhoto7" jdbcType="VARCHAR" />
+    <result column="home_photo8" property="homePhoto8" jdbcType="VARCHAR" />
+    <result column="home_photo9" property="homePhoto9" jdbcType="VARCHAR" />
+    <result column="cover_no" property="coverNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, self_evaluation, home_photo1, home_photo2, home_photo3, home_photo4,
+    home_photo5, home_photo6, home_photo7, home_photo8, home_photo9, cover_no
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_home_page
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.user.bean.UserHomePage" >
+    insert into user_home_page (id, user_no, self_evaluation,
+    home_photo1, home_photo2, home_photo3,
+    home_photo4, home_photo5, home_photo6,
+    home_photo7, home_photo8, home_photo9,
+    cover_no)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{selfEvaluation,jdbcType=VARCHAR},
+    #{homePhoto1,jdbcType=VARCHAR}, #{homePhoto2,jdbcType=VARCHAR}, #{homePhoto3,jdbcType=VARCHAR},
+    #{homePhoto4,jdbcType=VARCHAR}, #{homePhoto5,jdbcType=VARCHAR}, #{homePhoto6,jdbcType=VARCHAR},
+    #{homePhoto7,jdbcType=VARCHAR}, #{homePhoto8,jdbcType=VARCHAR}, #{homePhoto9,jdbcType=VARCHAR},
+    #{coverNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.user.bean.UserHomePage" >
+    insert into user_home_page
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="selfEvaluation != null" >
+        self_evaluation,
+      </if>
+      <if test="homePhoto1 != null" >
+        home_photo1,
+      </if>
+      <if test="homePhoto2 != null" >
+        home_photo2,
+      </if>
+      <if test="homePhoto3 != null" >
+        home_photo3,
+      </if>
+      <if test="homePhoto4 != null" >
+        home_photo4,
+      </if>
+      <if test="homePhoto5 != null" >
+        home_photo5,
+      </if>
+      <if test="homePhoto6 != null" >
+        home_photo6,
+      </if>
+      <if test="homePhoto7 != null" >
+        home_photo7,
+      </if>
+      <if test="homePhoto8 != null" >
+        home_photo8,
+      </if>
+      <if test="homePhoto9 != null" >
+        home_photo9,
+      </if>
+      <if test="coverNo != null" >
+        cover_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="selfEvaluation != null" >
+        #{selfEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto1 != null" >
+        #{homePhoto1,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto2 != null" >
+        #{homePhoto2,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto3 != null" >
+        #{homePhoto3,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto4 != null" >
+        #{homePhoto4,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto5 != null" >
+        #{homePhoto5,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto6 != null" >
+        #{homePhoto6,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto7 != null" >
+        #{homePhoto7,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto8 != null" >
+        #{homePhoto8,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto9 != null" >
+        #{homePhoto9,jdbcType=VARCHAR},
+      </if>
+      <if test="coverNo != null" >
+        #{coverNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.user.bean.UserHomePage" >
+    update user_home_page
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="selfEvaluation != null" >
+        self_evaluation = #{selfEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto1 != null" >
+        home_photo1 = #{homePhoto1,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto2 != null" >
+        home_photo2 = #{homePhoto2,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto3 != null" >
+        home_photo3 = #{homePhoto3,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto4 != null" >
+        home_photo4 = #{homePhoto4,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto5 != null" >
+        home_photo5 = #{homePhoto5,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto6 != null" >
+        home_photo6 = #{homePhoto6,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto7 != null" >
+        home_photo7 = #{homePhoto7,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto8 != null" >
+        home_photo8 = #{homePhoto8,jdbcType=VARCHAR},
+      </if>
+      <if test="homePhoto9 != null" >
+        home_photo9 = #{homePhoto9,jdbcType=VARCHAR},
+      </if>
+      <if test="coverNo != null" >
+        cover_no = #{coverNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.user.bean.UserHomePage" >
+    update user_home_page
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      self_evaluation = #{selfEvaluation,jdbcType=VARCHAR},
+      home_photo1 = #{homePhoto1,jdbcType=VARCHAR},
+      home_photo2 = #{homePhoto2,jdbcType=VARCHAR},
+      home_photo3 = #{homePhoto3,jdbcType=VARCHAR},
+      home_photo4 = #{homePhoto4,jdbcType=VARCHAR},
+      home_photo5 = #{homePhoto5,jdbcType=VARCHAR},
+      home_photo6 = #{homePhoto6,jdbcType=VARCHAR},
+      home_photo7 = #{homePhoto7,jdbcType=VARCHAR},
+      home_photo8 = #{homePhoto8,jdbcType=VARCHAR},
+      home_photo9 = #{homePhoto9,jdbcType=VARCHAR},
+      cover_no = #{coverNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updateHomePhotofield" parameterType="java.lang.String" statementType="STATEMENT">
+    update user_home_page
+    set
+      ${fields} = '${path}'
+    where id = '${id}'
+  </update>
+</mapper>

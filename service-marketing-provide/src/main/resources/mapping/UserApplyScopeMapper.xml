@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.UserApplyScopeMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.UserApplyScope">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="apply_no" jdbcType="VARCHAR" property="applyNo" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="scope_one_no" jdbcType="VARCHAR" property="scopeOneNo" />
+    <result column="scope_one_name" jdbcType="VARCHAR" property="scopeOneName" />
+    <result column="scope_two_no" jdbcType="VARCHAR" property="scopeTwoNo" />
+    <result column="scope_two_name" jdbcType="VARCHAR" property="scopeTwoName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, apply_no, user_no, scope_one_no, scope_one_name, scope_two_no, scope_two_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_apply_scope
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from user_apply_scope
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.UserApplyScope">
+    insert into user_apply_scope (id, apply_no, user_no, 
+      scope_one_no, scope_one_name, scope_two_no, 
+      scope_two_name)
+    values (#{id,jdbcType=VARCHAR}, #{applyNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{scopeOneNo,jdbcType=VARCHAR}, #{scopeOneName,jdbcType=VARCHAR}, #{scopeTwoNo,jdbcType=VARCHAR}, 
+      #{scopeTwoName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.UserApplyScope">
+    insert into user_apply_scope
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="applyNo != null">
+        apply_no,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="scopeOneNo != null">
+        scope_one_no,
+      </if>
+      <if test="scopeOneName != null">
+        scope_one_name,
+      </if>
+      <if test="scopeTwoNo != null">
+        scope_two_no,
+      </if>
+      <if test="scopeTwoName != null">
+        scope_two_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNo != null">
+        #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeOneNo != null">
+        #{scopeOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeOneName != null">
+        #{scopeOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoNo != null">
+        #{scopeTwoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoName != null">
+        #{scopeTwoName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.UserApplyScope">
+    update user_apply_scope
+    <set>
+      <if test="applyNo != null">
+        apply_no = #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeOneNo != null">
+        scope_one_no = #{scopeOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeOneName != null">
+        scope_one_name = #{scopeOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoNo != null">
+        scope_two_no = #{scopeTwoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoName != null">
+        scope_two_name = #{scopeTwoName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.UserApplyScope">
+    update user_apply_scope
+    set apply_no = #{applyNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      scope_one_no = #{scopeOneNo,jdbcType=VARCHAR},
+      scope_one_name = #{scopeOneName,jdbcType=VARCHAR},
+      scope_two_no = #{scopeTwoNo,jdbcType=VARCHAR},
+      scope_two_name = #{scopeTwoName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findApplyNoAfterAuditScopeList" parameterType="map" resultMap="BaseResultMap">
+    select
+    a.*
+    from user_apply_scope a
+    LEFT JOIN user_apply b ON a.apply_no = b.apply_no
+    where 1 = 1
+    <if test="userNo != null" >
+      and a.user_no = #{userNo,jdbcType=VARCHAR}
+    </if>
+    <if test="applyNo != null" >
+      and b.apply_no = #{applyNo,jdbcType=VARCHAR}
+    </if>
+    <if test="auditState != null" >
+      and b.audit_state = #{auditState,jdbcType=VARCHAR}
+    </if>
+  </select>
+</mapper>

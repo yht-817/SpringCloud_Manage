@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.user.server.dao.marketing.write.UserInfoMapperMarketingWrite">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserInfo">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+        <result column="user_head" property="userHead" jdbcType="VARCHAR" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="nike_name" property="nikeName" jdbcType="VARCHAR" />
+        <result column="sex_no" property="sexNo" jdbcType="VARCHAR" />
+        <result column="phone_no" property="phoneNo" jdbcType="VARCHAR" />
+        <result column="mailbox_no" property="mailboxNo" jdbcType="VARCHAR" />
+        <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
+        <result column="region_date" property="regionDate" jdbcType="TIMESTAMP" />
+        <result column="user_type" property="userType" jdbcType="VARCHAR" />
+        <result column="last_login_date" property="lastLoginDate" jdbcType="TIMESTAMP" />
+        <result column="user_state" property="userState" jdbcType="VARCHAR" />
+        <result column="evaluate_dividing" property="evaluateDividing" jdbcType="INTEGER" />
+        <result column="user_grade" property="userGrade" jdbcType="VARCHAR" />
+        <result column="user_grade_change_date" property="userGradeChangeDate" jdbcType="TIMESTAMP" />
+        <result column="other_app_id" property="otherAppId" jdbcType="VARCHAR" />
+        <result column="other_app_name" property="otherAppName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List" >
+    id, user_no, user_head, user_name, nike_name, sex_no, phone_no, mailbox_no, pass_word,
+    region_date, user_type, last_login_date, user_state, evaluate_dividing, user_grade,
+    user_grade_change_date, other_app_id, other_app_name
+  </sql>
+    <insert id="insert" parameterType="net.sunwukong.www.user.bean.UserInfo" >
+    insert into user_info (id, user_no, user_head,
+      user_name, nike_name, sex_no,
+      phone_no, mailbox_no, pass_word,
+      region_date, user_type, last_login_date,
+      user_state, evaluate_dividing, user_grade,
+      user_grade_change_date, other_app_id, other_app_name
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{userHead,jdbcType=VARCHAR},
+      #{userName,jdbcType=VARCHAR}, #{nikeName,jdbcType=VARCHAR}, #{sexNo,jdbcType=VARCHAR},
+      #{phoneNo,jdbcType=VARCHAR}, #{mailboxNo,jdbcType=VARCHAR}, #{passWord,jdbcType=VARCHAR},
+      #{regionDate,jdbcType=TIMESTAMP}, #{userType,jdbcType=VARCHAR}, #{lastLoginDate,jdbcType=TIMESTAMP},
+      #{userState,jdbcType=VARCHAR}, #{evaluateDividing,jdbcType=INTEGER}, #{userGrade,jdbcType=VARCHAR},
+      #{userGradeChangeDate,jdbcType=TIMESTAMP}, #{otherAppId,jdbcType=VARCHAR}, #{otherAppName,jdbcType=VARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="net.sunwukong.www.user.bean.UserInfo" >
+        insert into user_info
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="userNo != null" >
+                user_no,
+            </if>
+            <if test="userHead != null" >
+                user_head,
+            </if>
+            <if test="userName != null" >
+                user_name,
+            </if>
+            <if test="nikeName != null" >
+                nike_name,
+            </if>
+            <if test="sexNo != null" >
+                sex_no,
+            </if>
+            <if test="phoneNo != null" >
+                phone_no,
+            </if>
+            <if test="mailboxNo != null" >
+                mailbox_no,
+            </if>
+            <if test="passWord != null" >
+                pass_word,
+            </if>
+            <if test="regionDate != null" >
+                region_date,
+            </if>
+            <if test="userType != null" >
+                user_type,
+            </if>
+            <if test="lastLoginDate != null" >
+                last_login_date,
+            </if>
+            <if test="userState != null" >
+                user_state,
+            </if>
+            <if test="evaluateDividing != null" >
+                evaluate_dividing,
+            </if>
+            <if test="userGrade != null" >
+                user_grade,
+            </if>
+            <if test="userGradeChangeDate != null" >
+                user_grade_change_date,
+            </if>
+            <if test="otherAppId != null" >
+                other_app_id,
+            </if>
+            <if test="otherAppName != null" >
+                other_app_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userNo != null" >
+                #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userHead != null" >
+                #{userHead,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null" >
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="nikeName != null" >
+                #{nikeName,jdbcType=VARCHAR},
+            </if>
+            <if test="sexNo != null" >
+                #{sexNo,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNo != null" >
+                #{phoneNo,jdbcType=VARCHAR},
+            </if>
+            <if test="mailboxNo != null" >
+                #{mailboxNo,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null" >
+                #{passWord,jdbcType=VARCHAR},
+            </if>
+            <if test="regionDate != null" >
+                #{regionDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userType != null" >
+                #{userType,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginDate != null" >
+                #{lastLoginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userState != null" >
+                #{userState,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateDividing != null" >
+                #{evaluateDividing,jdbcType=INTEGER},
+            </if>
+            <if test="userGrade != null" >
+                #{userGrade,jdbcType=VARCHAR},
+            </if>
+            <if test="userGradeChangeDate != null" >
+                #{userGradeChangeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="otherAppId != null" >
+                #{otherAppId,jdbcType=VARCHAR},
+            </if>
+            <if test="otherAppName != null" >
+                #{otherAppName,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.user.bean.UserInfo" >
+        update user_info
+        <set >
+            <if test="userNo != null" >
+                user_no = #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userHead != null" >
+                user_head = #{userHead,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null" >
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="nikeName != null" >
+                nike_name = #{nikeName,jdbcType=VARCHAR},
+            </if>
+            <if test="sexNo != null" >
+                sex_no = #{sexNo,jdbcType=VARCHAR},
+            </if>
+            <if test="phoneNo != null" >
+                phone_no = #{phoneNo,jdbcType=VARCHAR},
+            </if>
+            <if test="mailboxNo != null" >
+                mailbox_no = #{mailboxNo,jdbcType=VARCHAR},
+            </if>
+            <if test="passWord != null" >
+                pass_word = #{passWord,jdbcType=VARCHAR},
+            </if>
+            <if test="regionDate != null" >
+                region_date = #{regionDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userType != null" >
+                user_type = #{userType,jdbcType=VARCHAR},
+            </if>
+            <if test="lastLoginDate != null" >
+                last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userState != null" >
+                user_state = #{userState,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateDividing != null" >
+                evaluate_dividing = #{evaluateDividing,jdbcType=INTEGER},
+            </if>
+            <if test="userGrade != null" >
+                user_grade = #{userGrade,jdbcType=VARCHAR},
+            </if>
+            <if test="userGradeChangeDate != null" >
+                user_grade_change_date = #{userGradeChangeDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="otherAppId != null" >
+                other_app_id = #{otherAppId,jdbcType=VARCHAR},
+            </if>
+            <if test="otherAppName != null" >
+                other_app_name = #{otherAppName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.user.bean.UserInfo" >
+    update user_info
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      user_head = #{userHead,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      nike_name = #{nikeName,jdbcType=VARCHAR},
+      sex_no = #{sexNo,jdbcType=VARCHAR},
+      phone_no = #{phoneNo,jdbcType=VARCHAR},
+      mailbox_no = #{mailboxNo,jdbcType=VARCHAR},
+      pass_word = #{passWord,jdbcType=VARCHAR},
+      region_date = #{regionDate,jdbcType=TIMESTAMP},
+      user_type = #{userType,jdbcType=VARCHAR},
+      last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+      user_state = #{userState,jdbcType=VARCHAR},
+      evaluate_dividing = #{evaluateDividing,jdbcType=INTEGER},
+      user_grade = #{userGrade,jdbcType=VARCHAR},
+      user_grade_change_date = #{userGradeChangeDate,jdbcType=TIMESTAMP},
+      other_app_id = #{otherAppId,jdbcType=VARCHAR},
+      other_app_name = #{otherAppName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from user_info
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+
+    <update id="updateUserHead">
+        update user_info
+        set user_head = #{userHead}
+        where id = #{id}
+    </update>
+
+    <update id="updaetByAccount">
+        update user_info
+        set pass_word = #{password}
+        where phone_no = #{account} or mailbox_no = #{account}
+    </update>
+
+    <update id="removeBindAccount" parameterType="java.lang.String" statementType="STATEMENT">
+        update user_info
+        set ${fieldName} = '${fieldVal}'
+        where id = '${id}'
+    </update>
+
+</mapper>

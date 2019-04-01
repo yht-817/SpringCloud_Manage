@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.InformationMapper">
+    <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.Information">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="information_no" jdbcType="VARCHAR" property="informationNo"/>
+        <result column="information_type" jdbcType="VARCHAR" property="informationType"/>
+        <result column="information_class" jdbcType="VARCHAR" property="informationClass"/>
+        <result column="information_city_no" jdbcType="VARCHAR" property="informationCityNo"/>
+        <result column="city_name" jdbcType="VARCHAR" property="cityName"/>
+        <result column="information_mode" jdbcType="VARCHAR" property="informationMode"/>
+        <result column="coupon_no" jdbcType="VARCHAR" property="couponNo"/>
+        <result column="user_no" jdbcType="VARCHAR" property="userNo"/>
+        <result column="information_name" jdbcType="VARCHAR" property="informationName"/>
+        <result column="information_photo" jdbcType="VARCHAR" property="informationPhoto"/>
+        <result column="photo_size_type" jdbcType="VARCHAR" property="photoSizeType"/>
+        <result column="information_url" jdbcType="VARCHAR" property="informationUrl"/>
+        <result column="release_date" jdbcType="TIMESTAMP" property="releaseDate"/>
+        <result column="set_top_state" jdbcType="VARCHAR" property="setTopState"/>
+        <result column="hot_state" jdbcType="VARCHAR" property="hotState"/>
+        <result column="evaluate_num" jdbcType="INTEGER" property="evaluateNum"/>
+        <result column="click_num" jdbcType="INTEGER" property="clickNum"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, information_no, information_type, information_class, information_city_no, city_name, 
+    information_mode, coupon_no, user_no, information_name, information_photo, photo_size_type, 
+    information_url, release_date, set_top_state, hot_state, evaluate_num, click_num
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from information
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from information
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.Information">
+    insert into information (id, information_no, information_type, 
+      information_class, information_city_no, city_name, 
+      information_mode, coupon_no, user_no, 
+      information_name, information_photo, photo_size_type, 
+      information_url, release_date, set_top_state, 
+      hot_state, evaluate_num, click_num
+      )
+    values (#{id,jdbcType=VARCHAR}, #{informationNo,jdbcType=VARCHAR}, #{informationType,jdbcType=VARCHAR}, 
+      #{informationClass,jdbcType=VARCHAR}, #{informationCityNo,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{informationMode,jdbcType=VARCHAR}, #{couponNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{informationName,jdbcType=VARCHAR}, #{informationPhoto,jdbcType=VARCHAR}, #{photoSizeType,jdbcType=VARCHAR}, 
+      #{informationUrl,jdbcType=VARCHAR}, #{releaseDate,jdbcType=TIMESTAMP}, #{setTopState,jdbcType=VARCHAR}, 
+      #{hotState,jdbcType=VARCHAR}, #{evaluateNum,jdbcType=INTEGER}, #{clickNum,jdbcType=INTEGER}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.Information">
+        insert into information
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="informationNo != null">
+                information_no,
+            </if>
+            <if test="informationType != null">
+                information_type,
+            </if>
+            <if test="informationClass != null">
+                information_class,
+            </if>
+            <if test="informationCityNo != null">
+                information_city_no,
+            </if>
+            <if test="cityName != null">
+                city_name,
+            </if>
+            <if test="informationMode != null">
+                information_mode,
+            </if>
+            <if test="couponNo != null">
+                coupon_no,
+            </if>
+            <if test="userNo != null">
+                user_no,
+            </if>
+            <if test="informationName != null">
+                information_name,
+            </if>
+            <if test="informationPhoto != null">
+                information_photo,
+            </if>
+            <if test="photoSizeType != null">
+                photo_size_type,
+            </if>
+            <if test="informationUrl != null">
+                information_url,
+            </if>
+            <if test="releaseDate != null">
+                release_date,
+            </if>
+            <if test="setTopState != null">
+                set_top_state,
+            </if>
+            <if test="hotState != null">
+                hot_state,
+            </if>
+            <if test="evaluateNum != null">
+                evaluate_num,
+            </if>
+            <if test="clickNum != null">
+                click_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="informationNo != null">
+                #{informationNo,jdbcType=VARCHAR},
+            </if>
+            <if test="informationType != null">
+                #{informationType,jdbcType=VARCHAR},
+            </if>
+            <if test="informationClass != null">
+                #{informationClass,jdbcType=VARCHAR},
+            </if>
+            <if test="informationCityNo != null">
+                #{informationCityNo,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="informationMode != null">
+                #{informationMode,jdbcType=VARCHAR},
+            </if>
+            <if test="couponNo != null">
+                #{couponNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userNo != null">
+                #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="informationName != null">
+                #{informationName,jdbcType=VARCHAR},
+            </if>
+            <if test="informationPhoto != null">
+                #{informationPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="photoSizeType != null">
+                #{photoSizeType,jdbcType=VARCHAR},
+            </if>
+            <if test="informationUrl != null">
+                #{informationUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseDate != null">
+                #{releaseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="setTopState != null">
+                #{setTopState,jdbcType=VARCHAR},
+            </if>
+            <if test="hotState != null">
+                #{hotState,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateNum != null">
+                #{evaluateNum,jdbcType=INTEGER},
+            </if>
+            <if test="clickNum != null">
+                #{clickNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.Information">
+        update information
+        <set>
+            <if test="informationNo != null">
+                information_no = #{informationNo,jdbcType=VARCHAR},
+            </if>
+            <if test="informationType != null">
+                information_type = #{informationType,jdbcType=VARCHAR},
+            </if>
+            <if test="informationClass != null">
+                information_class = #{informationClass,jdbcType=VARCHAR},
+            </if>
+            <if test="informationCityNo != null">
+                information_city_no = #{informationCityNo,jdbcType=VARCHAR},
+            </if>
+            <if test="cityName != null">
+                city_name = #{cityName,jdbcType=VARCHAR},
+            </if>
+            <if test="informationMode != null">
+                information_mode = #{informationMode,jdbcType=VARCHAR},
+            </if>
+            <if test="couponNo != null">
+                coupon_no = #{couponNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userNo != null">
+                user_no = #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="informationName != null">
+                information_name = #{informationName,jdbcType=VARCHAR},
+            </if>
+            <if test="informationPhoto != null">
+                information_photo = #{informationPhoto,jdbcType=VARCHAR},
+            </if>
+            <if test="photoSizeType != null">
+                photo_size_type = #{photoSizeType,jdbcType=VARCHAR},
+            </if>
+            <if test="informationUrl != null">
+                information_url = #{informationUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="releaseDate != null">
+                release_date = #{releaseDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="setTopState != null">
+                set_top_state = #{setTopState,jdbcType=VARCHAR},
+            </if>
+            <if test="hotState != null">
+                hot_state = #{hotState,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateNum != null">
+                evaluate_num = #{evaluateNum,jdbcType=INTEGER},
+            </if>
+            <if test="clickNum != null">
+                click_num = #{clickNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.Information">
+    update information
+    set information_no = #{informationNo,jdbcType=VARCHAR},
+      information_type = #{informationType,jdbcType=VARCHAR},
+      information_class = #{informationClass,jdbcType=VARCHAR},
+      information_city_no = #{informationCityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      information_mode = #{informationMode,jdbcType=VARCHAR},
+      coupon_no = #{couponNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      information_name = #{informationName,jdbcType=VARCHAR},
+      information_photo = #{informationPhoto,jdbcType=VARCHAR},
+      photo_size_type = #{photoSizeType,jdbcType=VARCHAR},
+      information_url = #{informationUrl,jdbcType=VARCHAR},
+      release_date = #{releaseDate,jdbcType=TIMESTAMP},
+      set_top_state = #{setTopState,jdbcType=VARCHAR},
+      hot_state = #{hotState,jdbcType=VARCHAR},
+      evaluate_num = #{evaluateNum,jdbcType=INTEGER},
+      click_num = #{clickNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <!--分页获取资讯新闻信息-->
+    <select id="findByInformationClassAndLimit" parameterType="map" resultType="map">
+        select
+        a.information_no,c.code_name as set_top_state,d.code_name as hot_state, information_name, photo_size_type,
+        a.information_photo,b.user_head,b.nike_name,a.release_date, evaluate_num, click_num,a.information_url
+        from information a
+        LEFT JOIN user_info b ON a.user_no = b.user_no
+        LEFT JOIN sys_code c ON a.set_top_state = c.code_no
+        LEFT JOIN sys_code d ON a.hot_state = d.code_no
+        where 1=1
+        <if test="informationClass != null and informationClass != ''">
+            AND a.information_class = #{informationClass,jdbcType=VARCHAR}
+        </if>
+        <if test="keyword != null and keyword != '' ">
+            AND a.information_name LIKE CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%')
+        </if>
+        <if test="hotState != null and hotState != '' ">
+            AND a.hot_state = #{hotState,jdbcType=VARCHAR}
+        </if>
+        order by a.hot_state DESC,a.set_top_state desc,a.release_date desc
+        limit #{start},#{size}
+    </select>
+
+    <!--咨询详情的查询-->
+    <select id="getDetails" resultType="net.sunwukong.www.marketing.vo.InformationDetailVo">
+        select
+        ie.id, ie.information_no, ie.information_type, ie.information_class,ie.information_mode, ie.information_name,
+        ie.information_url, ie.release_date, ie.user_no, ui.user_head, ui.nike_name,hot_state,click_num,
+        IF((select count(1) from collection_info a where ie.information_no = a.content_no and a.user_no = #{userNo}),'true','false') AS collection
+        from information ie
+        RIGHT JOIN user_info ui ON ie.user_no = ui.user_no
+        where information_no = #{informationNo}
+    </select>
+
+
+    <!--根据资讯编码增加资讯的评论数-->
+    <update id="updateEvaluateNumPlus" parameterType="java.lang.String">
+    update information
+    set
+      evaluate_num = evaluate_num + 1
+    where information_no = #{informationNo,jdbcType=VARCHAR}
+  </update>
+
+
+    <!--根据资讯编码增加资讯的点击数-->
+    <update id="updateClickNumPlus" parameterType="java.lang.String">
+    update information
+    set
+      click_num = click_num + 1
+    where information_no = #{informationNo,jdbcType=VARCHAR}
+  </update>
+
+    <select id="findByInformationNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from information
+        where information_no = #{InformationNo,jdbcType=VARCHAR}
+    </select>
+
+    <update id="setClickNum">
+        update information
+        set
+        click_num = click_num + #{clickNum}
+        where information_no = #{informationNo,jdbcType=VARCHAR}
+    </update>
+
+</mapper>

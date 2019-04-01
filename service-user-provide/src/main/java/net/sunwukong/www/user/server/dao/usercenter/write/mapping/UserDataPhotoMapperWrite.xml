@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.write.UserDataPhotoMapperWrite" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserDataPhoto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="data_photo1" property="dataPhoto1" jdbcType="VARCHAR" />
+    <result column="data_photo2" property="dataPhoto2" jdbcType="VARCHAR" />
+    <result column="data_photo3" property="dataPhoto3" jdbcType="VARCHAR" />
+    <result column="data_photo4" property="dataPhoto4" jdbcType="VARCHAR" />
+    <result column="data_photo5" property="dataPhoto5" jdbcType="VARCHAR" />
+    <result column="data_photo6" property="dataPhoto6" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, data_photo1, data_photo2, data_photo3, data_photo4, data_photo5, data_photo6
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_data_photo
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.user.bean.UserDataPhoto" >
+    insert into user_data_photo (id, user_no, data_photo1, 
+      data_photo2, data_photo3, data_photo4, 
+      data_photo5, data_photo6)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{dataPhoto1,jdbcType=VARCHAR}, 
+      #{dataPhoto2,jdbcType=VARCHAR}, #{dataPhoto3,jdbcType=VARCHAR}, #{dataPhoto4,jdbcType=VARCHAR}, 
+      #{dataPhoto5,jdbcType=VARCHAR}, #{dataPhoto6,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.user.bean.UserDataPhoto" >
+    insert into user_data_photo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="dataPhoto1 != null" >
+        data_photo1,
+      </if>
+      <if test="dataPhoto2 != null" >
+        data_photo2,
+      </if>
+      <if test="dataPhoto3 != null" >
+        data_photo3,
+      </if>
+      <if test="dataPhoto4 != null" >
+        data_photo4,
+      </if>
+      <if test="dataPhoto5 != null" >
+        data_photo5,
+      </if>
+      <if test="dataPhoto6 != null" >
+        data_photo6,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto1 != null" >
+        #{dataPhoto1,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto2 != null" >
+        #{dataPhoto2,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto3 != null" >
+        #{dataPhoto3,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto4 != null" >
+        #{dataPhoto4,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto5 != null" >
+        #{dataPhoto5,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto6 != null" >
+        #{dataPhoto6,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.user.bean.UserDataPhoto" >
+    update user_data_photo
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto1 != null" >
+        data_photo1 = #{dataPhoto1,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto2 != null" >
+        data_photo2 = #{dataPhoto2,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto3 != null" >
+        data_photo3 = #{dataPhoto3,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto4 != null" >
+        data_photo4 = #{dataPhoto4,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto5 != null" >
+        data_photo5 = #{dataPhoto5,jdbcType=VARCHAR},
+      </if>
+      <if test="dataPhoto6 != null" >
+        data_photo6 = #{dataPhoto6,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.user.bean.UserDataPhoto" >
+    update user_data_photo
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      data_photo1 = #{dataPhoto1,jdbcType=VARCHAR},
+      data_photo2 = #{dataPhoto2,jdbcType=VARCHAR},
+      data_photo3 = #{dataPhoto3,jdbcType=VARCHAR},
+      data_photo4 = #{dataPhoto4,jdbcType=VARCHAR},
+      data_photo5 = #{dataPhoto5,jdbcType=VARCHAR},
+      data_photo6 = #{dataPhoto6,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

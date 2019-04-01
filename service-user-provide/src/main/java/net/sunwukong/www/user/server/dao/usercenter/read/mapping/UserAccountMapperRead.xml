@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.UserAccountMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserAccount" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="account_amount" property="accountAmount" jdbcType="DECIMAL" />
+    <result column="forzen_account_amount" property="forzenAccountAmount" jdbcType="DECIMAL" />
+    <result column="cash_account_amount" property="cashAccountAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, account_amount, forzen_account_amount, cash_account_amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_account
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="findByUserNoAccount" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_account
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

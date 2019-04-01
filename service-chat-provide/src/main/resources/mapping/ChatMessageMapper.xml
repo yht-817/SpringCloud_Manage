@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.chat.server.dao.ChatMessageMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.chat.bean.ChatMessage" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="send_date" property="sendDate" jdbcType="TIMESTAMP" />
+    <result column="message_type" property="messageType" jdbcType="VARCHAR" />
+    <result column="message_mode" property="messageMode" jdbcType="VARCHAR" />
+    <result column="group_no" property="groupNo" jdbcType="VARCHAR" />
+    <result column="receive_user_no" property="receiveUserNo" jdbcType="VARCHAR" />
+    <result column="message_text" property="messageText" jdbcType="VARCHAR" />
+    <result column="message_photo_small" property="messagePhotoSmall" jdbcType="VARCHAR" />
+    <result column="message_photo_large" property="messagePhotoLarge" jdbcType="VARCHAR" />
+    <result column="read_state" property="readState" jdbcType="VARCHAR" />
+    <result column="read_date" property="readDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, send_date, message_type, message_mode, group_no, receive_user_no, message_text, 
+    message_photo_small, message_photo_large, read_state, read_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from chat_message
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from chat_message
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.chat.bean.ChatMessage" >
+    insert into chat_message (id, user_no, send_date, 
+      message_type, message_mode, group_no, 
+      receive_user_no, message_text, message_photo_small, 
+      message_photo_large, read_state, read_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{sendDate,jdbcType=TIMESTAMP}, 
+      #{messageType,jdbcType=VARCHAR}, #{messageMode,jdbcType=VARCHAR}, #{groupNo,jdbcType=VARCHAR}, 
+      #{receiveUserNo,jdbcType=VARCHAR}, #{messageText,jdbcType=VARCHAR}, #{messagePhotoSmall,jdbcType=VARCHAR}, 
+      #{messagePhotoLarge,jdbcType=VARCHAR}, #{readState,jdbcType=VARCHAR}, #{readDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.chat.bean.ChatMessage" >
+    insert into chat_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="sendDate != null" >
+        send_date,
+      </if>
+      <if test="messageType != null" >
+        message_type,
+      </if>
+      <if test="messageMode != null" >
+        message_mode,
+      </if>
+      <if test="groupNo != null" >
+        group_no,
+      </if>
+      <if test="receiveUserNo != null" >
+        receive_user_no,
+      </if>
+      <if test="messageText != null" >
+        message_text,
+      </if>
+      <if test="messagePhotoSmall != null" >
+        message_photo_small,
+      </if>
+      <if test="messagePhotoLarge != null" >
+        message_photo_large,
+      </if>
+      <if test="readState != null" >
+        read_state,
+      </if>
+      <if test="readDate != null" >
+        read_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null" >
+        #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageType != null" >
+        #{messageType,jdbcType=VARCHAR},
+      </if>
+      <if test="messageMode != null" >
+        #{messageMode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNo != null" >
+        #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveUserNo != null" >
+        #{receiveUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="messageText != null" >
+        #{messageText,jdbcType=VARCHAR},
+      </if>
+      <if test="messagePhotoSmall != null" >
+        #{messagePhotoSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="messagePhotoLarge != null" >
+        #{messagePhotoLarge,jdbcType=VARCHAR},
+      </if>
+      <if test="readState != null" >
+        #{readState,jdbcType=VARCHAR},
+      </if>
+      <if test="readDate != null" >
+        #{readDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.chat.bean.ChatMessage" >
+    update chat_message
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendDate != null" >
+        send_date = #{sendDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="messageType != null" >
+        message_type = #{messageType,jdbcType=VARCHAR},
+      </if>
+      <if test="messageMode != null" >
+        message_mode = #{messageMode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNo != null" >
+        group_no = #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveUserNo != null" >
+        receive_user_no = #{receiveUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="messageText != null" >
+        message_text = #{messageText,jdbcType=VARCHAR},
+      </if>
+      <if test="messagePhotoSmall != null" >
+        message_photo_small = #{messagePhotoSmall,jdbcType=VARCHAR},
+      </if>
+      <if test="messagePhotoLarge != null" >
+        message_photo_large = #{messagePhotoLarge,jdbcType=VARCHAR},
+      </if>
+      <if test="readState != null" >
+        read_state = #{readState,jdbcType=VARCHAR},
+      </if>
+      <if test="readDate != null" >
+        read_date = #{readDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.chat.bean.ChatMessage" >
+    update chat_message
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      send_date = #{sendDate,jdbcType=TIMESTAMP},
+      message_type = #{messageType,jdbcType=VARCHAR},
+      message_mode = #{messageMode,jdbcType=VARCHAR},
+      group_no = #{groupNo,jdbcType=VARCHAR},
+      receive_user_no = #{receiveUserNo,jdbcType=VARCHAR},
+      message_text = #{messageText,jdbcType=VARCHAR},
+      message_photo_small = #{messagePhotoSmall,jdbcType=VARCHAR},
+      message_photo_large = #{messagePhotoLarge,jdbcType=VARCHAR},
+      read_state = #{readState,jdbcType=VARCHAR},
+      read_date = #{readDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

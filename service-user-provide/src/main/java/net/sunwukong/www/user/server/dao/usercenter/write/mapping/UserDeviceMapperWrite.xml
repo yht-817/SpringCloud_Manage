@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.write.UserDeviceMapperWrite" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserDevice" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="phone_type" property="phoneType" jdbcType="VARCHAR" />
+    <result column="device_no" property="deviceNo" jdbcType="VARCHAR" />
+    <result column="last_login_date" property="lastLoginDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, phone_type, device_no, last_login_date
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_device
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.user.bean.UserDevice" >
+    insert into user_device (id, user_no, phone_type, 
+      device_no, last_login_date)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{phoneType,jdbcType=VARCHAR}, 
+      #{deviceNo,jdbcType=VARCHAR}, #{lastLoginDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.user.bean.UserDevice" >
+    insert into user_device
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="phoneType != null" >
+        phone_type,
+      </if>
+      <if test="deviceNo != null" >
+        device_no,
+      </if>
+      <if test="lastLoginDate != null" >
+        last_login_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneType != null" >
+        #{phoneType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNo != null" >
+        #{deviceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginDate != null" >
+        #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.user.bean.UserDevice" >
+    update user_device
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneType != null" >
+        phone_type = #{phoneType,jdbcType=VARCHAR},
+      </if>
+      <if test="deviceNo != null" >
+        device_no = #{deviceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="lastLoginDate != null" >
+        last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.user.bean.UserDevice" >
+    update user_device
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      phone_type = #{phoneType,jdbcType=VARCHAR},
+      device_no = #{deviceNo,jdbcType=VARCHAR},
+      last_login_date = #{lastLoginDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.CategoryOneMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.CategoryOne" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="category_one_icon" property="categoryOneIcon" jdbcType="VARCHAR" />
+    <result column="category_one_no" property="categoryOneNo" jdbcType="VARCHAR" />
+    <result column="category_one_name" property="categoryOneName" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="BaseResultMapChilds" type="net.sunwukong.www.user.bean.CategoryOne" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="category_one_icon" property="categoryOneIcon" jdbcType="VARCHAR" />
+    <result column="category_one_no" property="categoryOneNo" jdbcType="VARCHAR" />
+    <result column="category_one_name" property="categoryOneName" jdbcType="VARCHAR" />
+    <collection property="categoryTwos"
+                column="category_one_no"
+                ofType="net.sunwukong.www.user.bean.CategoryTwo">
+      <id column="sid" property="id" jdbcType="VARCHAR" />
+      <result column="category_two_icon" property="categoryTwoIcon" jdbcType="VARCHAR" />
+      <result column="category_two_no" property="categoryTwoNo" jdbcType="VARCHAR" />
+      <result column="category_two_name" property="categoryTwoName" jdbcType="VARCHAR" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, category_one_icon, category_one_no, category_one_name
+  </sql>
+  <sql id="Base_Column_List_Childs" >
+    a.id, a.category_one_icon, a.category_one_no, a.category_one_name,b.id as sid, b.category_two_icon, b.category_two_no, b.category_two_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from category_one
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from category_one
+  </select>
+  <select id="findByCategoryOneNo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from category_one
+    where category_one_no = #{categoryOneNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByCategoryOneNoConnectCategoryTwo" resultMap="BaseResultMapChilds">
+    select
+    <include refid="Base_Column_List_Childs" />
+    from category_one a
+    LEFT JOIN category_two b ON a.category_one_no = b.category_one_no
+    where a.category_one_no = #{categoryOneNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryAllConnectCategoryTwo" resultMap="BaseResultMapChilds">
+    select
+    <include refid="Base_Column_List_Childs" />
+    from category_one a
+    LEFT JOIN category_two b ON a.category_one_no = b.category_one_no
+  </select>
+
+  <select id="getCategoryOneConnectCategoryTwo" resultMap="BaseResultMapChilds">
+    select
+    <include refid="Base_Column_List_Childs" />
+    from category_one a
+    LEFT JOIN category_two b ON a.category_one_no = b.category_one_no
+    where a.category_one_no IN
+    <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+</mapper>

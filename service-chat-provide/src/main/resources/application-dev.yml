@@ -1,0 +1,87 @@
+server:
+  port: 8032
+
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      profile: prod
+eureka:
+  client:
+    service-url:
+      #defaultZone: http://47.98.139.112:8761/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+spring:
+  application:
+    name: chat-server-1
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    readSize: 1
+    write:
+      chat-mess:
+        url: jdbc:mysql://47.98.139.112:3306/chat_mess?useUnicode=true&amp;characterEncoding=utf-8
+        driver-class-name: com.mysql.jdbc.Driver
+        username: admin
+        password: sunwukong123
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat
+    read:
+      chat-mess:
+        url: jdbc:mysql://47.96.98.127:3306/chat_mess?useUnicode=true&amp;characterEncoding=utf-8
+        driver-class-name: com.mysql.jdbc.Driver
+        username: sunwukong
+        password: J8bWDX+3LH5WMN+98F1g1g==
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat
+logging:
+  file: F:/logs/server-user.log
+  level:
+    classpath:/mapping: debug
+    root: INFO
+
+ribbon:
+  eureka:
+    enabled: true
+  #：请求处理的超时时间
+  ReadTimeout: 60000
+  #：请求连接的超时时间
+  ConnectTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000
+

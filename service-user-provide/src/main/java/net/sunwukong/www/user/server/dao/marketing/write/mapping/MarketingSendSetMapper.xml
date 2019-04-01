@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.marketing.write.MarketingSendSetMapperWrite" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.MarketingSendSet">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="send_no" jdbcType="VARCHAR" property="sendNo" />
+    <result column="send_type" jdbcType="VARCHAR" property="sendType" />
+    <result column="send_amount" jdbcType="DECIMAL" property="sendAmount" />
+    <result column="send_begin_date" jdbcType="TIMESTAMP" property="sendBeginDate" />
+    <result column="send_end_date" jdbcType="TIMESTAMP" property="sendEndDate" />
+    <result column="operator_date" jdbcType="TIMESTAMP" property="operatorDate" />
+    <result column="user_no_platform" jdbcType="VARCHAR" property="userNoPlatform" />
+    <result column="user_name_platform" jdbcType="VARCHAR" property="userNamePlatform" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, send_no, send_type, send_amount, send_begin_date, send_end_date, operator_date,
+    user_no_platform, user_name_platform
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from marketing_send_set
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.MarketingSendSet">
+    insert into marketing_send_set (id, send_no, send_type,
+      send_amount, send_begin_date, send_end_date,
+      operator_date, user_no_platform, user_name_platform
+      )
+    values (#{id,jdbcType=VARCHAR}, #{sendNo,jdbcType=VARCHAR}, #{sendType,jdbcType=VARCHAR},
+      #{sendAmount,jdbcType=DECIMAL}, #{sendBeginDate,jdbcType=TIMESTAMP}, #{sendEndDate,jdbcType=TIMESTAMP},
+      #{operatorDate,jdbcType=TIMESTAMP}, #{userNoPlatform,jdbcType=VARCHAR}, #{userNamePlatform,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.MarketingSendSet">
+    insert into marketing_send_set
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="sendNo != null">
+        send_no,
+      </if>
+      <if test="sendType != null">
+        send_type,
+      </if>
+      <if test="sendAmount != null">
+        send_amount,
+      </if>
+      <if test="sendBeginDate != null">
+        send_begin_date,
+      </if>
+      <if test="sendEndDate != null">
+        send_end_date,
+      </if>
+      <if test="operatorDate != null">
+        operator_date,
+      </if>
+      <if test="userNoPlatform != null">
+        user_no_platform,
+      </if>
+      <if test="userNamePlatform != null">
+        user_name_platform,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="sendNo != null">
+        #{sendNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendType != null">
+        #{sendType,jdbcType=VARCHAR},
+      </if>
+      <if test="sendAmount != null">
+        #{sendAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="sendBeginDate != null">
+        #{sendBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendEndDate != null">
+        #{sendEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorDate != null">
+        #{operatorDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userNoPlatform != null">
+        #{userNoPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="userNamePlatform != null">
+        #{userNamePlatform,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.MarketingSendSet">
+    update marketing_send_set
+    <set>
+      <if test="sendNo != null">
+        send_no = #{sendNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sendType != null">
+        send_type = #{sendType,jdbcType=VARCHAR},
+      </if>
+      <if test="sendAmount != null">
+        send_amount = #{sendAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="sendBeginDate != null">
+        send_begin_date = #{sendBeginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sendEndDate != null">
+        send_end_date = #{sendEndDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="operatorDate != null">
+        operator_date = #{operatorDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userNoPlatform != null">
+        user_no_platform = #{userNoPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="userNamePlatform != null">
+        user_name_platform = #{userNamePlatform,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.MarketingSendSet">
+    update marketing_send_set
+    set send_no = #{sendNo,jdbcType=VARCHAR},
+      send_type = #{sendType,jdbcType=VARCHAR},
+      send_amount = #{sendAmount,jdbcType=DECIMAL},
+      send_begin_date = #{sendBeginDate,jdbcType=TIMESTAMP},
+      send_end_date = #{sendEndDate,jdbcType=TIMESTAMP},
+      operator_date = #{operatorDate,jdbcType=TIMESTAMP},
+      user_no_platform = #{userNoPlatform,jdbcType=VARCHAR},
+      user_name_platform = #{userNamePlatform,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.user.server.dao.marketing.read.MarketingSendSetMapperRead">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.MarketingSendSet">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="send_no" jdbcType="VARCHAR" property="sendNo" />
+    <result column="send_type" jdbcType="VARCHAR" property="sendType" />
+    <result column="send_amount" jdbcType="DECIMAL" property="sendAmount" />
+    <result column="send_begin_date" jdbcType="TIMESTAMP" property="sendBeginDate" />
+    <result column="send_end_date" jdbcType="TIMESTAMP" property="sendEndDate" />
+    <result column="operator_date" jdbcType="TIMESTAMP" property="operatorDate" />
+    <result column="user_no_platform" jdbcType="VARCHAR" property="userNoPlatform" />
+    <result column="user_name_platform" jdbcType="VARCHAR" property="userNamePlatform" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, send_no, send_type, send_amount, send_begin_date, send_end_date, operator_date, 
+    user_no_platform, user_name_platform
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from marketing_send_set
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+
+
+  <select id="findBySendTypeBetweenDate" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from marketing_send_set
+    WHERE
+    send_type = #{sendType,jdbcType=VARCHAR}
+    AND #{nowDate} BETWEEN send_begin_date AND send_end_date
+    limit 1
+  </select>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.UserInfoMapperRead">
+
+    <!-- 通用查询映射结果 -->
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserInfo">
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+        <result column="user_head" property="userHead" jdbcType="VARCHAR" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="nike_name" property="nikeName" jdbcType="VARCHAR" />
+        <result column="sex_no" property="sexNo" jdbcType="VARCHAR" />
+        <result column="phone_no" property="phoneNo" jdbcType="VARCHAR" />
+        <result column="mailbox_no" property="mailboxNo" jdbcType="VARCHAR" />
+        <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
+        <result column="region_date" property="regionDate" jdbcType="TIMESTAMP" />
+        <result column="user_type" property="userType" jdbcType="VARCHAR" />
+        <result column="last_login_date" property="lastLoginDate" jdbcType="TIMESTAMP" />
+        <result column="user_state" property="userState" jdbcType="VARCHAR" />
+        <result column="evaluate_dividing" property="evaluateDividing" jdbcType="INTEGER" />
+        <result column="user_grade" property="userGrade" jdbcType="VARCHAR" />
+        <result column="user_grade_change_date" property="userGradeChangeDate" jdbcType="TIMESTAMP" />
+        <result column="other_app_id" property="otherAppId" jdbcType="VARCHAR" />
+        <result column="other_app_name" property="otherAppName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List" >
+    id, user_no, user_head, user_name, nike_name, sex_no, phone_no, mailbox_no, pass_word,
+    region_date, user_type, last_login_date, user_state, evaluate_dividing, user_grade,
+    user_grade_change_date, other_app_id, other_app_name
+  </sql>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+        where id = #{id}
+    </select>
+    <sql id="Base_Column_List_Info" >
+        a.id, a.user_no, a.user_head, a.user_name, a.nike_name, /*b.code_name as */sex_no, a.phone_no, a.mailbox_no, a.pass_word,
+        a.region_date, c.code_name as user_type, a.last_login_date, d.code_name as user_state, a.evaluate_dividing, e.grade_name as user_grade,
+        a.user_grade_change_date, a.other_app_id, a.other_app_name
+    </sql>
+
+    <select id="queryAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+    </select>
+
+    <select id="findByAccount" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+        where phone_no = #{account,jdbcType=VARCHAR}
+        or mailbox_no = #{account,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByAccountAndPassword" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+        where (phone_no = #{account,jdbcType=VARCHAR}
+        or mailbox_no = #{account,jdbcType=VARCHAR})
+        and pass_word = #{password,jdbcType=VARCHAR}
+
+    </select>
+
+    <select id="findByOtherAppId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+        where other_app_id = #{otherAppId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByIdInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List_Info" />
+        from user_info a
+        /*left join sys_code b on a.sex_no = b.code_no*/
+        left join sys_code c on a.user_type = c.code_no
+        left join sys_code d on a.user_state = d.code_no
+		left join sys_user_grade e on a.user_grade = e.user_grade
+        where a.id = #{id}
+    </select>
+
+    <select id="findByUserNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+        where user_no = #{userNo,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findByUserNoInfo" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List_Info" />
+        from user_info a
+        /*left join sys_code b on a.sex_no = b.code_no*/
+        left join sys_code c on a.user_type = c.code_no
+        left join sys_code d on a.user_state = d.code_no
+        left join sys_user_grade e on a.user_grade = e.user_grade
+        where a.user_no = #{userNo,jdbcType=VARCHAR}
+    </select>
+</mapper>

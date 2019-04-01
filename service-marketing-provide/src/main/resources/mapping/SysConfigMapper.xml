@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.SysConfigMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.SysConfig" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="config_code" property="configCode" jdbcType="VARCHAR" />
+    <result column="config_remark" property="configRemark" jdbcType="VARCHAR" />
+    <result column="config_val" property="configVal" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, config_code, config_remark, config_val
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_config
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_config
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.SysConfig" >
+    insert into sys_config (id, config_code, config_remark, 
+      config_val)
+    values (#{id,jdbcType=VARCHAR}, #{configCode,jdbcType=VARCHAR}, #{configRemark,jdbcType=VARCHAR}, 
+      #{configVal,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.SysConfig" >
+    insert into sys_config
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="configCode != null" >
+        config_code,
+      </if>
+      <if test="configRemark != null" >
+        config_remark,
+      </if>
+      <if test="configVal != null" >
+        config_val,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="configCode != null" >
+        #{configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configRemark != null" >
+        #{configRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="configVal != null" >
+        #{configVal,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.SysConfig" >
+    update sys_config
+    <set >
+      <if test="configCode != null" >
+        config_code = #{configCode,jdbcType=VARCHAR},
+      </if>
+      <if test="configRemark != null" >
+        config_remark = #{configRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="configVal != null" >
+        config_val = #{configVal,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.SysConfig" >
+    update sys_config
+    set config_code = #{configCode,jdbcType=VARCHAR},
+      config_remark = #{configRemark,jdbcType=VARCHAR},
+      config_val = #{configVal,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findBySysCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from sys_config
+    where config_code = #{configCode,jdbcType=VARCHAR}
+  </select>
+</mapper>

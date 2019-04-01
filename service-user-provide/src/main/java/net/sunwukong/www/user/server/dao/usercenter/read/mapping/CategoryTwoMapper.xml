@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.CategoryTwoMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.CategoryTwo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="category_one_no" property="categoryOneNo" jdbcType="VARCHAR" />
+    <result column="category_two_icon" property="categoryTwoIcon" jdbcType="VARCHAR" />
+    <result column="category_two_no" property="categoryTwoNo" jdbcType="VARCHAR" />
+    <result column="category_two_name" property="categoryTwoName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, category_one_no, category_two_icon, category_two_no, category_two_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from category_two
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByCategoryOneNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from category_two
+    where category_one_no = #{categoryOneNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

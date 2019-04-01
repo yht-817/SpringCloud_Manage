@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.DemandEvaluateMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.DemandEvaluate">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="demand_no" jdbcType="VARCHAR" property="demandNo" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="complain_state" jdbcType="VARCHAR" property="complainState" />
+    <result column="preson_star" jdbcType="INTEGER" property="presonStar" />
+    <result column="time_star" jdbcType="INTEGER" property="timeStar" />
+    <result column="quality_stat" jdbcType="INTEGER" property="qualityStat" />
+    <result column="evaluate_remark" jdbcType="VARCHAR" property="evaluateRemark" />
+    <result column="evaluate_date" jdbcType="TIMESTAMP" property="evaluateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, demand_no, user_no, complain_state, preson_star, time_star, quality_stat, evaluate_remark, 
+    evaluate_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from demand_evaluate
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from demand_evaluate
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.DemandEvaluate">
+    insert into demand_evaluate (id, demand_no, user_no, 
+      complain_state, preson_star, time_star, 
+      quality_stat, evaluate_remark, evaluate_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{demandNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{complainState,jdbcType=VARCHAR}, #{presonStar,jdbcType=INTEGER}, #{timeStar,jdbcType=INTEGER}, 
+      #{qualityStat,jdbcType=INTEGER}, #{evaluateRemark,jdbcType=VARCHAR}, #{evaluateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.DemandEvaluate">
+    insert into demand_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="demandNo != null">
+        demand_no,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="complainState != null">
+        complain_state,
+      </if>
+      <if test="presonStar != null">
+        preson_star,
+      </if>
+      <if test="timeStar != null">
+        time_star,
+      </if>
+      <if test="qualityStat != null">
+        quality_stat,
+      </if>
+      <if test="evaluateRemark != null">
+        evaluate_remark,
+      </if>
+      <if test="evaluateDate != null">
+        evaluate_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="demandNo != null">
+        #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="complainState != null">
+        #{complainState,jdbcType=VARCHAR},
+      </if>
+      <if test="presonStar != null">
+        #{presonStar,jdbcType=INTEGER},
+      </if>
+      <if test="timeStar != null">
+        #{timeStar,jdbcType=INTEGER},
+      </if>
+      <if test="qualityStat != null">
+        #{qualityStat,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateRemark != null">
+        #{evaluateRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateDate != null">
+        #{evaluateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.DemandEvaluate">
+    update demand_evaluate
+    <set>
+      <if test="demandNo != null">
+        demand_no = #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="complainState != null">
+        complain_state = #{complainState,jdbcType=VARCHAR},
+      </if>
+      <if test="presonStar != null">
+        preson_star = #{presonStar,jdbcType=INTEGER},
+      </if>
+      <if test="timeStar != null">
+        time_star = #{timeStar,jdbcType=INTEGER},
+      </if>
+      <if test="qualityStat != null">
+        quality_stat = #{qualityStat,jdbcType=INTEGER},
+      </if>
+      <if test="evaluateRemark != null">
+        evaluate_remark = #{evaluateRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateDate != null">
+        evaluate_date = #{evaluateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.DemandEvaluate">
+    update demand_evaluate
+    set demand_no = #{demandNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      complain_state = #{complainState,jdbcType=VARCHAR},
+      preson_star = #{presonStar,jdbcType=INTEGER},
+      time_star = #{timeStar,jdbcType=INTEGER},
+      quality_stat = #{qualityStat,jdbcType=INTEGER},
+      evaluate_remark = #{evaluateRemark,jdbcType=VARCHAR},
+      evaluate_date = #{evaluateDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+
+  <!--通过服务机构编码和投诉状态获取评价为投诉的需求单-->
+  <select id="getEvaluateByMerchanNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_evaluate
+    WHERE user_no = #{userNo,jdbcType=VARCHAR}
+    AND complain_state = #{complainState,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="getEvaluateByDemandNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_evaluate
+    WHERE demand_no = #{demandNo,jdbcType=VARCHAR}
+  </select>
+
+
+  <!--获取服务机构每单每项评分，再相加，最后计算总和-->
+  <select id="getStarSumByUserNo" parameterType="java.lang.String" resultType="java.util.HashMap">
+    SELECT
+    COUNT(id) AS num,
+    SUM(preson_star + quality_stat + time_star) AS total
+    FROM demand_evaluate
+    WHERE user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+
+
+</mapper>

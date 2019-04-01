@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.SysCodeMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.SysCode" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="code_type" property="codeType" jdbcType="VARCHAR" />
+    <result column="code_no" property="codeNo" jdbcType="VARCHAR" />
+    <result column="code_name" property="codeName" jdbcType="VARCHAR" />
+    <result column="code_remark" property="codeRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code_type, code_no, code_name, code_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_code
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from sys_code
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.SysCode" >
+    insert into sys_code (id, code_type, code_no, 
+      code_name, code_remark)
+    values (#{id,jdbcType=VARCHAR}, #{codeType,jdbcType=VARCHAR}, #{codeNo,jdbcType=VARCHAR}, 
+      #{codeName,jdbcType=VARCHAR}, #{codeRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.SysCode" >
+    insert into sys_code
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="codeType != null" >
+        code_type,
+      </if>
+      <if test="codeNo != null" >
+        code_no,
+      </if>
+      <if test="codeName != null" >
+        code_name,
+      </if>
+      <if test="codeRemark != null" >
+        code_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="codeType != null" >
+        #{codeType,jdbcType=VARCHAR},
+      </if>
+      <if test="codeNo != null" >
+        #{codeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null" >
+        #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeRemark != null" >
+        #{codeRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.SysCode" >
+    update sys_code
+    <set >
+      <if test="codeType != null" >
+        code_type = #{codeType,jdbcType=VARCHAR},
+      </if>
+      <if test="codeNo != null" >
+        code_no = #{codeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="codeName != null" >
+        code_name = #{codeName,jdbcType=VARCHAR},
+      </if>
+      <if test="codeRemark != null" >
+        code_remark = #{codeRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.SysCode" >
+    update sys_code
+    set code_type = #{codeType,jdbcType=VARCHAR},
+      code_no = #{codeNo,jdbcType=VARCHAR},
+      code_name = #{codeName,jdbcType=VARCHAR},
+      code_remark = #{codeRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findByCodeType" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from sys_code
+    where code_type = #{codeType,jdbcType=VARCHAR}
+    order by code_type,code_no
+  </select>
+</mapper>

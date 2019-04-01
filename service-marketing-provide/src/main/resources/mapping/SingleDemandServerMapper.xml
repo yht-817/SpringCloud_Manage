@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.SingleDemandServerMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.DemandInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="demand_no" jdbcType="VARCHAR" property="demandNo" />
+    <result column="category_one_no" jdbcType="VARCHAR" property="categoryOneNo" />
+    <result column="category_one_name" jdbcType="VARCHAR" property="categoryOneName" />
+    <result column="category_two_no" jdbcType="VARCHAR" property="categoryTwoNo" />
+    <result column="category_two_name" jdbcType="VARCHAR" property="categoryTwoName" />
+    <result column="city_no" jdbcType="VARCHAR" property="cityNo" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="special_remark" jdbcType="VARCHAR" property="specialRemark" />
+    <result column="submit_date" jdbcType="TIMESTAMP" property="submitDate" />
+    <result column="pay_num" jdbcType="DECIMAL" property="payNum" />
+    <result column="demand_state" jdbcType="VARCHAR" property="demandState" />
+    <result column="server_state" jdbcType="VARCHAR" property="serverState" />
+    <result column="rob_user" jdbcType="VARCHAR" property="robUser" />
+    <result column="service_user" jdbcType="VARCHAR" property="serviceUser" />
+    <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_no, demand_no, category_one_no, category_one_name, category_two_no, category_two_name, 
+    city_no, city_name, special_remark, submit_date, pay_num, demand_state, server_state, 
+    rob_user, service_user,change_date
+  </sql>
+
+  <select id="findByUserNoAndServerStateList" resultType="map" parameterType="map">
+    select
+    a.id,a.demand_no,a.category_one_name,a.category_two_name,a.special_remark,a.change_date,b.code_name as server_state,a.server_state as server_code
+    FROM demand_info a
+    LEFT JOIN sys_code b ON a.server_state = b.code_no
+    where a.service_user = #{userNo}
+    and a.server_state = #{serverState}
+  </select>
+
+  <select id="findByDemandServerDetails" resultType="map" parameterType="map">
+    select
+    a.demand_no,c.id,c.nike_name,c.user_head,a.city_name,a.special_remark,
+    a.change_date,d.code_name as server_state,a.category_one_name,a.category_two_name
+    /* 如果是待审核状态 显示服务机构的电话号码 */
+    <choose>
+      <when test="serverState == '10290006'">
+        ,c.phone_no
+      </when>
+      <otherwise>
+        ,a.phone_no
+      </otherwise>
+    </choose>
+    FROM demand_info a
+    LEFT JOIN sys_code b ON a.server_state = b.code_no
+    <choose>
+      <when test="serverState == '10290006'">
+        LEFT JOIN user_info c on a.rob_user = c.user_no
+      </when>
+      <otherwise>
+        LEFT JOIN user_info c on a.user_no = c.user_no
+      </otherwise>
+    </choose>
+    LEFT JOIN sys_code d ON d.code_no = a.server_state
+    where a.service_user = #{userNo}
+    and a.demand_no = #{demandNo}
+    and a.server_state = #{serverState}
+  </select>
+</mapper>

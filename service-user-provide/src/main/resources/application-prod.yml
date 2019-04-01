@@ -1,0 +1,176 @@
+###################  项目启动端口  ###################
+server:
+  port: 8011
+
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      profile: prod
+###################  项目注册入口  ###################
+eureka:
+  client:
+    service-url:
+      defaultZone: http://172.16.24.105:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+##########################################################
+##################  spring配置 data配置  ##################
+##########################################################
+spring:
+  application:
+    name: user-server-1
+  http:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+      enabled: true
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    readSize: 2
+    read:
+      user-center:
+        url: jdbc:mysql://127.0.0.1:3306/user_center?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: 7ulmub+0R1B1Jq7d6BG4Cw==
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat
+      marketing:
+        url: jdbc:mysql://127.0.0.1:3306/marketing?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: 7ulmub+0R1B1Jq7d6BG4Cw==
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat
+      chat-mess:
+        url: jdbc:mysql://127.0.0.1:3306/chat_mess?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.jdbc.Driver
+        username: root
+        password: 7ulmub+0R1B1Jq7d6BG4Cw==
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat
+    write:
+      user-center:
+        url: jdbc:mysql://172.16.24.105:3306/user_center?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.jdbc.Driver
+        username: sunwukong
+        password: J8bWDX+3LH5WMN+98F1g1g==
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat
+      marketing:
+        url: jdbc:mysql://172.16.24.105:3306/marketing?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.jdbc.Driver
+        username: sunwukong
+        password: J8bWDX+3LH5WMN+98F1g1g==
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat
+      chat-mess:
+        url: jdbc:mysql://172.16.24.105:3306/chat_mess?autoReconnect=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+        driver-class-name: com.mysql.jdbc.Driver
+        username: sunwukong
+        password: J8bWDX+3LH5WMN+98F1g1g==
+        minIdle: 5
+        maxActive: 100
+        initialSize: 10
+        maxWait: 60000
+        timeBetweenEvictionRunsMillis: 60000
+        minEvictableIdleTimeMillis: 300000
+        validationQuery: select 'x'
+        testWhileIdle: true
+        testOnBorrow: false
+        testOnReturn: false
+        poolPreparedStatements: true
+        maxPoolPreparedStatementPerConnectionSize: 50
+        removeAbandoned: true
+        filters: stat
+###################  数据日志配置  ###################
+logging:
+  #file: logs/server-user.log
+  level:
+    net.sunwukong.www.user.server.dao.usercenter.read: error
+    net.sunwukong.www.user.server.dao.usercenter.write: error
+    net.sunwukong.www.user.server.dao.chatmess.write: error
+    net.sunwukong.www.user.server.dao.chatmess.read: error
+    net.sunwukong.www.user.server.dao.marketing.write: error
+    net.sunwukong.www.user.server.dao.marketing.read: error
+
+ribbon:
+  eureka:
+    enabled: true
+  #：请求处理的超时时间
+  ReadTimeout: 60000
+  #：请求连接的超时时间
+  ConnectTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000

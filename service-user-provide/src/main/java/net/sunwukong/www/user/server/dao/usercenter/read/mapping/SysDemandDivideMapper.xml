@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.SysDemandDivideMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.SysDemandDivide" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="receipt_divide" property="receiptDivide" jdbcType="DECIMAL" />
+    <result column="service_divide" property="serviceDivide" jdbcType="DECIMAL" />
+    <result column="manger_divide" property="mangerDivide" jdbcType="DECIMAL" />
+    <result column="platform_divide" property="platformDivide" jdbcType="DECIMAL" />
+    <result column="divide_execstate" property="divideExecstate" jdbcType="VARCHAR" />
+    <result column="user_no_platform" property="userNoPlatform" jdbcType="VARCHAR" />
+    <result column="user_name_platform" property="userNamePlatform" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, create_date, receipt_divide, service_divide, manger_divide, platform_divide, 
+    divide_execstate, user_no_platform, user_name_platform
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from sys_demand_divide
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+</mapper>

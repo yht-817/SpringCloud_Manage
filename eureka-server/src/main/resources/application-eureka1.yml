@@ -1,0 +1,17 @@
+##################################################服务注册中心##################################################
+server:
+  port: 8761
+eureka:
+  server:
+    enable-self-preservation: false
+  client:
+    #通过eureka.client.registerWithEureka：false和fetchRegistry：false来表明自己是一个eureka server.
+    register-with-eureka: false
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/
+    fetch-registry: false
+  instance:
+    prefer-ip-address: true
+spring:
+  application:
+    name: eureka

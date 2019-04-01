@@ -1,0 +1,511 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.DemandInfoMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.DemandInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="demand_no" jdbcType="VARCHAR" property="demandNo" />
+    <result column="category_one_no" jdbcType="VARCHAR" property="categoryOneNo" />
+    <result column="category_one_name" jdbcType="VARCHAR" property="categoryOneName" />
+    <result column="category_two_no" jdbcType="VARCHAR" property="categoryTwoNo" />
+    <result column="category_two_name" jdbcType="VARCHAR" property="categoryTwoName" />
+    <result column="city_no" jdbcType="VARCHAR" property="cityNo" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="special_remark" jdbcType="VARCHAR" property="specialRemark" />
+    <result column="submit_date" jdbcType="TIMESTAMP" property="submitDate" />
+    <result column="scope_one_no" jdbcType="VARCHAR" property="scopeOneNo" />
+    <result column="scope_one_name" jdbcType="VARCHAR" property="scopeOneName" />
+    <result column="scope_two_no" jdbcType="VARCHAR" property="scopeTwoNo" />
+    <result column="scope_two_name" jdbcType="VARCHAR" property="scopeTwoName" />
+    <result column="pay_num" jdbcType="DECIMAL" property="payNum" />
+    <result column="demand_state" jdbcType="VARCHAR" property="demandState" />
+    <result column="server_state" jdbcType="VARCHAR" property="serverState" />
+    <result column="rob_user" jdbcType="VARCHAR" property="robUser" />
+    <result column="service_user" jdbcType="VARCHAR" property="serviceUser" />
+    <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="phone_no" jdbcType="VARCHAR" property="phoneNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_no, demand_no, category_one_no, category_one_name, category_two_no, category_two_name, 
+    city_no, city_name, special_remark, submit_date, scope_one_no, scope_one_name, scope_two_no, 
+    scope_two_name, pay_num, demand_state, server_state, rob_user, service_user, change_date, 
+    phone_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from demand_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from demand_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.DemandInfo">
+    insert into demand_info (id, user_no, demand_no, 
+      category_one_no, category_one_name, category_two_no, 
+      category_two_name, city_no, city_name, 
+      special_remark, submit_date, scope_one_no, 
+      scope_one_name, scope_two_no, scope_two_name, 
+      pay_num, demand_state, server_state, 
+      rob_user, service_user, change_date, 
+      phone_no)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{demandNo,jdbcType=VARCHAR}, 
+      #{categoryOneNo,jdbcType=VARCHAR}, #{categoryOneName,jdbcType=VARCHAR}, #{categoryTwoNo,jdbcType=VARCHAR}, 
+      #{categoryTwoName,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{specialRemark,jdbcType=VARCHAR}, #{submitDate,jdbcType=TIMESTAMP}, #{scopeOneNo,jdbcType=VARCHAR}, 
+      #{scopeOneName,jdbcType=VARCHAR}, #{scopeTwoNo,jdbcType=VARCHAR}, #{scopeTwoName,jdbcType=VARCHAR}, 
+      #{payNum,jdbcType=DECIMAL}, #{demandState,jdbcType=VARCHAR}, #{serverState,jdbcType=VARCHAR}, 
+      #{robUser,jdbcType=VARCHAR}, #{serviceUser,jdbcType=VARCHAR}, #{changeDate,jdbcType=TIMESTAMP}, 
+      #{phoneNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.DemandInfo">
+    insert into demand_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="demandNo != null">
+        demand_no,
+      </if>
+      <if test="categoryOneNo != null">
+        category_one_no,
+      </if>
+      <if test="categoryOneName != null">
+        category_one_name,
+      </if>
+      <if test="categoryTwoNo != null">
+        category_two_no,
+      </if>
+      <if test="categoryTwoName != null">
+        category_two_name,
+      </if>
+      <if test="cityNo != null">
+        city_no,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="specialRemark != null">
+        special_remark,
+      </if>
+      <if test="submitDate != null">
+        submit_date,
+      </if>
+      <if test="scopeOneNo != null">
+        scope_one_no,
+      </if>
+      <if test="scopeOneName != null">
+        scope_one_name,
+      </if>
+      <if test="scopeTwoNo != null">
+        scope_two_no,
+      </if>
+      <if test="scopeTwoName != null">
+        scope_two_name,
+      </if>
+      <if test="payNum != null">
+        pay_num,
+      </if>
+      <if test="demandState != null">
+        demand_state,
+      </if>
+      <if test="serverState != null">
+        server_state,
+      </if>
+      <if test="robUser != null">
+        rob_user,
+      </if>
+      <if test="serviceUser != null">
+        service_user,
+      </if>
+      <if test="changeDate != null">
+        change_date,
+      </if>
+      <if test="phoneNo != null">
+        phone_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="demandNo != null">
+        #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOneNo != null">
+        #{categoryOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOneName != null">
+        #{categoryOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwoNo != null">
+        #{categoryTwoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwoName != null">
+        #{categoryTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null">
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="specialRemark != null">
+        #{specialRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="submitDate != null">
+        #{submitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scopeOneNo != null">
+        #{scopeOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeOneName != null">
+        #{scopeOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoNo != null">
+        #{scopeTwoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoName != null">
+        #{scopeTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="payNum != null">
+        #{payNum,jdbcType=DECIMAL},
+      </if>
+      <if test="demandState != null">
+        #{demandState,jdbcType=VARCHAR},
+      </if>
+      <if test="serverState != null">
+        #{serverState,jdbcType=VARCHAR},
+      </if>
+      <if test="robUser != null">
+        #{robUser,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUser != null">
+        #{serviceUser,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneNo != null">
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.DemandInfo">
+    update demand_info
+    <set>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="demandNo != null">
+        demand_no = #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOneNo != null">
+        category_one_no = #{categoryOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOneName != null">
+        category_one_name = #{categoryOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwoNo != null">
+        category_two_no = #{categoryTwoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwoName != null">
+        category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null">
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="specialRemark != null">
+        special_remark = #{specialRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="submitDate != null">
+        submit_date = #{submitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="scopeOneNo != null">
+        scope_one_no = #{scopeOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeOneName != null">
+        scope_one_name = #{scopeOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoNo != null">
+        scope_two_no = #{scopeTwoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoName != null">
+        scope_two_name = #{scopeTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="payNum != null">
+        pay_num = #{payNum,jdbcType=DECIMAL},
+      </if>
+      <if test="demandState != null">
+        demand_state = #{demandState,jdbcType=VARCHAR},
+      </if>
+      <if test="serverState != null">
+        server_state = #{serverState,jdbcType=VARCHAR},
+      </if>
+      <if test="robUser != null">
+        rob_user = #{robUser,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUser != null">
+        service_user = #{serviceUser,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null">
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="phoneNo != null">
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.DemandInfo">
+    update demand_info
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      demand_no = #{demandNo,jdbcType=VARCHAR},
+      category_one_no = #{categoryOneNo,jdbcType=VARCHAR},
+      category_one_name = #{categoryOneName,jdbcType=VARCHAR},
+      category_two_no = #{categoryTwoNo,jdbcType=VARCHAR},
+      category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      special_remark = #{specialRemark,jdbcType=VARCHAR},
+      submit_date = #{submitDate,jdbcType=TIMESTAMP},
+      scope_one_no = #{scopeOneNo,jdbcType=VARCHAR},
+      scope_one_name = #{scopeOneName,jdbcType=VARCHAR},
+      scope_two_no = #{scopeTwoNo,jdbcType=VARCHAR},
+      scope_two_name = #{scopeTwoName,jdbcType=VARCHAR},
+      pay_num = #{payNum,jdbcType=DECIMAL},
+      demand_state = #{demandState,jdbcType=VARCHAR},
+      server_state = #{serverState,jdbcType=VARCHAR},
+      rob_user = #{robUser,jdbcType=VARCHAR},
+      service_user = #{serviceUser,jdbcType=VARCHAR},
+      change_date = #{changeDate,jdbcType=TIMESTAMP},
+      phone_no = #{phoneNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据用户编码和需求状态查询需求信息分页列表-->
+  <select id="getDemandListByUserNoAndState" parameterType="net.sunwukong.www.marketing.server.domain.DemandParamPo" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_info
+    <where>
+      1=1
+      <if test="userNo != null">
+        AND user_no = #{userNo,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null">
+        AND demand_state = #{state,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY submit_date DESC
+    LIMIT #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+
+
+  <!--查询我的未开始的需求列表(待接单、已抢单)-->
+  <select id="getNotStartListByUserNo" parameterType="net.sunwukong.www.marketing.server.domain.DemandParamPo" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_info
+    <where>
+        (demand_state = '10080001' OR demand_state = '10080006')
+      <if test="userNo != null">
+        AND user_no = #{userNo,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY submit_date DESC
+    LIMIT #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+
+
+  <!--根据用户编码和服务状态查询需求信息分页列表-->
+  <select id="getDemandListByUserNoAndServerState" parameterType="net.sunwukong.www.marketing.server.domain.DemandParamPo" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_info
+    <where>
+      1=1
+      <if test="userNo != null">
+        AND rob_user = #{userNo,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null">
+        AND server_state = #{state,jdbcType=VARCHAR}
+      </if>
+    </where>
+    ORDER BY change_date DESC
+    LIMIT #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+
+
+  <!--获取距现在多少时长未接单的需求单，系统自动派单-->
+  <select id="getNotStartedDemandListByTimeLength" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_info
+    <where>
+      demand_state = '10080001'
+      AND HOUR(timediff(now(), submit_date)) >= #{timeLength,jdbcType=INTEGER}
+    </where>
+  </select>
+
+
+  <!--通过城市编码，需求状态获取该城市下需求信息-->
+  <select id="getDemandListByCityNoAndState" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_info
+    WHERE
+    city_no = #{cityNo,jdbcType=VARCHAR}
+    AND demand_state = #{demandState,jdbcType=VARCHAR}
+  </select>
+
+  <!--通过订单号查询需求信息-->
+  <select id="getDemandInfoByDemandNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_info
+    WHERE
+    demand_no = #{demandNo,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="getDemandServerByDemandNoAndState" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from demand_info
+    where demand_no = #{demandNo,jdbcType=VARCHAR}
+    AND demand_state = #{demandState,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findHomeDemandinfo" parameterType="map" resultMap="BaseResultMap">
+    select
+    a.id, a.user_no, a.demand_no, category_one_no, category_one_name, category_two_no, category_two_name,
+    city_no, city_name, special_remark, submit_date, pay_num, b.code_name as demand_state
+    from demand_info a
+    LEFT JOIN sys_code b ON a.demand_state = b.code_no
+    WHERE 1=1
+    <if test="demandState != null">
+      and a.demand_state = #{demandState,jdbcType=VARCHAR}
+    </if>
+    <if test="serverState != null">
+      and a.server_state = #{serverState,jdbcType=VARCHAR}
+    </if>
+    <if test="categoryTwoNos != null">
+      and category_two_no in
+      <foreach close=")" collection="categoryTwoNos" index="index" item="twos" open="(" separator=",">
+        #{twos}
+      </foreach>
+    </if>
+    <if test="citys != null">
+      and a.city_no in
+      <foreach close=")" collection="citys" index="index" item="item" open="(" separator=",">
+        #{item}
+      </foreach>
+    </if>
+    limit ${start},${end}
+  </select>
+
+  <!--通过单号更新需求表信息-->
+  <update id="updateByDemandNoSelective" parameterType="net.sunwukong.www.marketing.bean.DemandInfo">
+    update demand_info
+    <set>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="demandNo != null">
+        demand_no = #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOneNo != null">
+        category_one_no = #{categoryOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryOneName != null">
+        category_one_name = #{categoryOneName,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwoNo != null">
+        category_two_no = #{categoryTwoNo,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryTwoName != null">
+        category_two_name = #{categoryTwoName,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null">
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="specialRemark != null">
+        special_remark = #{specialRemark,jdbcType=VARCHAR},
+      </if>
+      <if test="submitDate != null">
+        submit_date = #{submitDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payNum != null">
+        pay_num = #{payNum,jdbcType=DECIMAL},
+      </if>
+      <if test="demandState != null">
+        demand_state = #{demandState,jdbcType=VARCHAR},
+      </if>
+      <if test="serverState != null">
+        server_state = #{serverState,jdbcType=VARCHAR},
+      </if>
+      <if test="robUser != null">
+        rob_user = #{robUser,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceUser != null">
+        service_user = #{serviceUser,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null">
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where demand_no = #{demandNo,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--计算服务用户(机构、个人)各个阶段服务的数量-->
+  <select id="getCountsByServerNoAndState" resultType="java.util.HashMap">
+    SELECT
+    SUM(demand_state= #{demandState,jdbcType=VARCHAR} ) AS counts
+    FROM demand_info
+    WHERE
+    service_user = #{serviceUser,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByUserNoAndServerStateAndDemandState" resultType="java.lang.Integer" parameterType="map">
+    SELECT
+    count(1)
+    FROM demand_info
+    WHERE user_no = #{userNo,jdbcType=VARCHAR}
+    and demand_state = #{demandState,jdbcType=VARCHAR}
+    and server_state = #{serverState,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByCityNoAndDemandState" resultType="map">
+    SELECT
+    a.id,a.demand_no,b.user_head,b.nike_name,a.special_remark
+    FROM demand_info a
+    LEFT JOIN user_info b ON a.user_no = b.user_no
+    where a.city_no = #{cityNo,jdbcType=VARCHAR}
+    and a.demand_state = #{demandState,jdbcType=VARCHAR}
+    order by a.submit_date
+    limit #{start},#{size}
+  </select>
+
+  <select id="getNotStartDemandDetail" resultType="map">
+    SELECT
+    a.demand_no,b.user_no,b.user_head,b.nike_name,a.city_name,a.phone_no,a.special_remark,a.submit_date,a.demand_state
+    FROM demand_info a
+    LEFT JOIN user_info b ON a.user_no = b.user_no
+    where demand_no = #{demandNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

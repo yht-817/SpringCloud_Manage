@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.chat.server.dao.FriendInviteMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.chat.bean.FriendInvite">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="friend_user_no" jdbcType="VARCHAR" property="friendUserNo" />
+    <result column="invite_no" jdbcType="VARCHAR" property="inviteNo" />
+    <result column="invite_date" jdbcType="TIMESTAMP" property="inviteDate" />
+    <result column="verify_info" jdbcType="VARCHAR" property="verifyInfo" />
+    <result column="invite_state" jdbcType="VARCHAR" property="inviteState" />
+    <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_no, friend_user_no, invite_no, invite_date, verify_info, invite_state, change_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from friend_invite
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from friend_invite
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.chat.bean.FriendInvite">
+    insert into friend_invite (id, user_no, friend_user_no, 
+      invite_no, invite_date, verify_info, 
+      invite_state, change_date)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{friendUserNo,jdbcType=VARCHAR}, 
+      #{inviteNo,jdbcType=VARCHAR}, #{inviteDate,jdbcType=TIMESTAMP}, #{verifyInfo,jdbcType=VARCHAR}, 
+      #{inviteState,jdbcType=VARCHAR}, #{changeDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.chat.bean.FriendInvite">
+    insert into friend_invite
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="friendUserNo != null">
+        friend_user_no,
+      </if>
+      <if test="inviteNo != null">
+        invite_no,
+      </if>
+      <if test="inviteDate != null">
+        invite_date,
+      </if>
+      <if test="verifyInfo != null">
+        verify_info,
+      </if>
+      <if test="inviteState != null">
+        invite_state,
+      </if>
+      <if test="changeDate != null">
+        change_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="friendUserNo != null">
+        #{friendUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteNo != null">
+        #{inviteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteDate != null">
+        #{inviteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyInfo != null">
+        #{verifyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteState != null">
+        #{inviteState,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.chat.bean.FriendInvite">
+    update friend_invite
+    <set>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="friendUserNo != null">
+        friend_user_no = #{friendUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteNo != null">
+        invite_no = #{inviteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteDate != null">
+        invite_date = #{inviteDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="verifyInfo != null">
+        verify_info = #{verifyInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteState != null">
+        invite_state = #{inviteState,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null">
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.chat.bean.FriendInvite">
+    update friend_invite
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      friend_user_no = #{friendUserNo,jdbcType=VARCHAR},
+      invite_no = #{inviteNo,jdbcType=VARCHAR},
+      invite_date = #{inviteDate,jdbcType=TIMESTAMP},
+      verify_info = #{verifyInfo,jdbcType=VARCHAR},
+      invite_state = #{inviteState,jdbcType=VARCHAR},
+      change_date = #{changeDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="queryPageFriends" resultType="map">
+    select
+    a.invite_no,b.user_no,b.user_head,b.nike_name
+    from friend_invite a
+    RIGHT join user_info b on a.friend_user_no = b.user_no
+    where a.user_no = #{userNo,jdbcType=VARCHAR}
+    and a.invite_state = #{inviteState,jdbcType=VARCHAR}
+    <if test="size != 0">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="findByUserNoAndFriendUserNoAndInviteState" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_invite
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    AND friend_user_no = #{friendUserNo,jdbcType=VARCHAR}
+    AND invite_state = #{inviteState,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryPageSearchFriendUser" resultType="map">
+    select
+    a.id,b.user_no,b.user_head,b.nike_name
+    from friend_invite a
+    right join user_info b on a.friend_user_no = b.user_no
+    where a.user_no = #{userNo,jdbcType=VARCHAR}
+    and a.invite_state = #{inviteState,jdbcType=VARCHAR}
+    <if test="content != null and content != '' ">
+      and (b.nike_name LIKE CONCAT('%',#{content},'%') OR b.user_name LIKE CONCAT('%',#{content},'%') )
+    </if>
+    <if test="size != 0">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="findByInviteNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_invite
+    where invite_no = #{inviteNo,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="delByInviteNo" parameterType="java.lang.String">
+    delete from friend_invite
+    where invite_no = #{inviteNo,jdbcType=VARCHAR}
+  </delete>
+
+  <select id="countByUserNoAndInvite" resultType="java.lang.Integer">
+    select
+    count(1)
+    from friend_invite
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    and invite_state = #{inviteState,jdbcType=VARCHAR}
+  </select>
+</mapper>

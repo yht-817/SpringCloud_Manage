@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.DemandServerMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.DemandServer" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="super_user_no" property="superUserNo" jdbcType="VARCHAR" />
+    <result column="demand_no" property="demandNo" jdbcType="VARCHAR" />
+    <result column="demand_state" property="demandState" jdbcType="VARCHAR" />
+    <result column="change_date" property="changeDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, super_user_no, demand_no, demand_state, change_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from demand_server
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from demand_server
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.DemandServer" >
+    insert into demand_server (id, user_no, super_user_no, 
+      demand_no, demand_state, change_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{superUserNo,jdbcType=VARCHAR}, 
+      #{demandNo,jdbcType=VARCHAR}, #{demandState,jdbcType=VARCHAR}, #{changeDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.DemandServer" >
+    insert into demand_server
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="superUserNo != null" >
+        super_user_no,
+      </if>
+      <if test="demandNo != null" >
+        demand_no,
+      </if>
+      <if test="demandState != null" >
+        demand_state,
+      </if>
+      <if test="changeDate != null" >
+        change_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="superUserNo != null" >
+        #{superUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="demandNo != null" >
+        #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="demandState != null" >
+        #{demandState,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null" >
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.DemandServer" >
+    update demand_server
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="superUserNo != null" >
+        super_user_no = #{superUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="demandNo != null" >
+        demand_no = #{demandNo,jdbcType=VARCHAR},
+      </if>
+      <if test="demandState != null" >
+        demand_state = #{demandState,jdbcType=VARCHAR},
+      </if>
+      <if test="changeDate != null" >
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.DemandServer" >
+    update demand_server
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      super_user_no = #{superUserNo,jdbcType=VARCHAR},
+      demand_no = #{demandNo,jdbcType=VARCHAR},
+      demand_state = #{demandState,jdbcType=VARCHAR},
+      change_date = #{changeDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!--根据用户编码和需求状态查询需求信息分页列表-->
+  <select id="getDemandServerListPageByUserNoAndState" resultMap="BaseResultMap" parameterType="net.sunwukong.www.marketing.server.domain.DemandParamPo" >
+    SELECT
+    ds.id, user_no, super_user_no, demand_no, co.code_name AS demand_state, change_date
+    FROM demand_server ds
+    LEFT JOIN sys_code co ON ds.demand_state = co.code_no
+    <where>
+      1=1
+      <if test="userNo != null">
+        AND user_no = #{userNo,jdbcType=VARCHAR}
+      </if>
+      <if test="state != null">
+        AND demand_state = #{state,jdbcType=VARCHAR}
+      </if>
+    </where>
+    LIMIT #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+  </select>
+
+
+  <!--根据用户编码和需求状态查询需求信息列表-->
+  <select id="getDemandServerListByUserNoAndState" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    ds.id, user_no, super_user_no, demand_no, co.code_name AS demand_state, change_date
+    FROM demand_server ds
+    LEFT JOIN sys_code co ON ds.demand_state = co.code_no
+    WHERE
+    user_no = #{userNo,jdbcType=VARCHAR}
+    AND demand_state = #{demandState,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="getDemandServerByDemandNoAndState" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_server
+    WHERE
+    demand_no = #{demandNo,jdbcType=VARCHAR}
+    AND demand_state = #{demandState,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByDemandNoOrderByDate" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM demand_server
+    WHERE
+    demand_no = #{demandNo,jdbcType=VARCHAR}
+    ORDER BY change_date DESC
+    limit 1
+  </select>
+
+  <select id="findByUserNoAndDemandStateList" resultType="map" parameterType="map">
+    select
+    b.id,b.category_one_name,b.category_two_name,b.special_remark,b.submit_date,c.code_name as demand_state
+    from demand_server a
+    LEFT JOIN demand_info b ON a.demand_no = b.demand_no
+    LEFT JOIN sys_code c ON a.demand_state = c.code_no
+    where a.user_no = #{userNo}
+    and b.demand_state = #{demandState}
+    and a.demand_state = #{serverState}
+  </select>
+
+</mapper>

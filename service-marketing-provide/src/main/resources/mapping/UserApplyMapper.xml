@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.UserApplyMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.UserApply" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="apply_no" property="applyNo" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="phone_no" property="phoneNo" jdbcType="VARCHAR" />
+    <result column="sex_no" property="sexNo" jdbcType="VARCHAR" />
+    <result column="apply_type" property="applyType" jdbcType="VARCHAR" />
+    <result column="user_no_manger" property="userNoManger" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="contract_number" property="contractNumber" jdbcType="VARCHAR" />
+    <result column="apply_date" property="applyDate" jdbcType="TIMESTAMP" />
+    <result column="audit_state" property="auditState" jdbcType="VARCHAR" />
+    <result column="audit_date" property="auditDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, apply_no, user_no, phone_no, sex_no, apply_type, user_no_manger, address, contract_number, 
+    apply_date, audit_state, audit_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_apply
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_apply
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.UserApply" >
+    insert into user_apply (id, apply_no, user_no, 
+      phone_no, sex_no, apply_type, 
+      user_no_manger, address, contract_number, 
+      apply_date, audit_state, audit_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{applyNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{phoneNo,jdbcType=VARCHAR}, #{sexNo,jdbcType=VARCHAR}, #{applyType,jdbcType=VARCHAR}, 
+      #{userNoManger,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{contractNumber,jdbcType=VARCHAR}, 
+      #{applyDate,jdbcType=TIMESTAMP}, #{auditState,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.UserApply" >
+    insert into user_apply
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="applyNo != null" >
+        apply_no,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="phoneNo != null" >
+        phone_no,
+      </if>
+      <if test="sexNo != null" >
+        sex_no,
+      </if>
+      <if test="applyType != null" >
+        apply_type,
+      </if>
+      <if test="userNoManger != null" >
+        user_no_manger,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="contractNumber != null" >
+        contract_number,
+      </if>
+      <if test="applyDate != null" >
+        apply_date,
+      </if>
+      <if test="auditState != null" >
+        audit_state,
+      </if>
+      <if test="auditDate != null" >
+        audit_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="applyNo != null" >
+        #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null" >
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sexNo != null" >
+        #{sexNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyType != null" >
+        #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="userNoManger != null" >
+        #{userNoManger,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNumber != null" >
+        #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditState != null" >
+        #{auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.UserApply" >
+    update user_apply
+    <set >
+      <if test="applyNo != null" >
+        apply_no = #{applyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null" >
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sexNo != null" >
+        sex_no = #{sexNo,jdbcType=VARCHAR},
+      </if>
+      <if test="applyType != null" >
+        apply_type = #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="userNoManger != null" >
+        user_no_manger = #{userNoManger,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contractNumber != null" >
+        contract_number = #{contractNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null" >
+        apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auditState != null" >
+        audit_state = #{auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null" >
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.UserApply" >
+    update user_apply
+    set apply_no = #{applyNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      phone_no = #{phoneNo,jdbcType=VARCHAR},
+      sex_no = #{sexNo,jdbcType=VARCHAR},
+      apply_type = #{applyType,jdbcType=VARCHAR},
+      user_no_manger = #{userNoManger,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      contract_number = #{contractNumber,jdbcType=VARCHAR},
+      apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      audit_state = #{auditState,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findByUserNoAndAuditState" resultMap="BaseResultMap" parameterType="String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_apply
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    and audit_state = #{auditState,jdbcType=VARCHAR}
+  </select>
+
+  <select id="finByApplyNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_apply
+    where apply_no = #{applyNo,jdbcType=VARCHAR}
+  </select>
+
+
+  <!--获取运营官下面的服务机构列表-->
+  <select id="findByUserNoManagerAndAuditState"  resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM user_apply
+    WHERE user_no_manger = #{userNoManger,jdbcType=VARCHAR}
+    AND audit_state = #{auditState,jdbcType=VARCHAR}
+    <if test="pageSize !=0">
+      LIMIT #{start,jdbcType=INTEGER}, #{pageSize,jdbcType=INTEGER}
+    </if>
+  </select>
+
+
+  <!--通过用户编码和审核状态查询用户申请信息List-->
+  <select id="getUserApplyByUserNoAndAuditState" resultMap="BaseResultMap" parameterType="map">
+    select
+    <include refid="Base_Column_List" />
+    from user_apply
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    and audit_state = #{auditState,jdbcType=VARCHAR}
+  </select>
+
+  <!--获取城市管理者下面审核通过的服务机构-->
+  <select id="findByUserNoMangerAndAuditState" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_apply
+    where user_no_manger = #{userNoManger,jdbcType=VARCHAR} and audit_state = #{auditState,jdbcType=VARCHAR}
+  </select>
+
+  <select id="determineIfThereIsAnInitialApplication" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_apply
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    and (apply_type = #{gtType,jdbcType=VARCHAR} || apply_type = #{jgType,jdbcType=VARCHAR})
+  </select>
+</mapper>

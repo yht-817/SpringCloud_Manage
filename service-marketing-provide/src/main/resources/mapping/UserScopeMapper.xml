@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.UserScopeMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserScope" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="scope_one_no" property="scopeOneNo" jdbcType="VARCHAR" />
+    <result column="scope_two_no" property="scopeTwoNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, scope_one_no, scope_two_no
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_center.user_scope
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.user.bean.UserScope" >
+    insert into user_center.user_scope (id, user_no, scope_one_no,
+      scope_two_no)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{scopeOneNo,jdbcType=VARCHAR}, 
+      #{scopeTwoNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.user.bean.UserScope" >
+    insert into user_center.user_scope
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="scopeOneNo != null" >
+        scope_one_no,
+      </if>
+      <if test="scopeTwoNo != null" >
+        scope_two_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeOneNo != null" >
+        #{scopeOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoNo != null" >
+        #{scopeTwoNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.user.bean.UserScope" >
+    update user_center.user_scope
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeOneNo != null" >
+        scope_one_no = #{scopeOneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="scopeTwoNo != null" >
+        scope_two_no = #{scopeTwoNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.user.bean.UserScope" >
+    update user_center.user_scope
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      scope_one_no = #{scopeOneNo,jdbcType=VARCHAR},
+      scope_two_no = #{scopeTwoNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.write.UserHomePageVisitMapperWrite" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserHomePageVisit" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="visit_no" property="visitNo" jdbcType="VARCHAR" />
+    <result column="visit_date" property="visitDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, visit_no, visit_date
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_home_page_visit
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.user.bean.UserHomePageVisit" >
+    insert into user_home_page_visit (id, user_no, visit_no, 
+      visit_date)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{visitNo,jdbcType=VARCHAR}, 
+      #{visitDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.user.bean.UserHomePageVisit" >
+    insert into user_home_page_visit
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="visitNo != null" >
+        visit_no,
+      </if>
+      <if test="visitDate != null" >
+        visit_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNo != null" >
+        #{visitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="visitDate != null" >
+        #{visitDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.user.bean.UserHomePageVisit" >
+    update user_home_page_visit
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="visitNo != null" >
+        visit_no = #{visitNo,jdbcType=VARCHAR},
+      </if>
+      <if test="visitDate != null" >
+        visit_date = #{visitDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.user.bean.UserHomePageVisit" >
+    update user_home_page_visit
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      visit_no = #{visitNo,jdbcType=VARCHAR},
+      visit_date = #{visitDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

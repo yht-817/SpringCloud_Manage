@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.MobileVersionMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.server.model.MobileVersion" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+    <result column="app_type" property="appType" jdbcType="VARCHAR" />
+    <result column="app_file_path" property="appFilePath" jdbcType="VARCHAR" />
+    <result column="app_qrcode_path" property="appQrcodePath" jdbcType="VARCHAR" />
+    <result column="app_log" property="appLog" jdbcType="VARCHAR" />
+    <result column="app_time" property="appTime" jdbcType="TIMESTAMP" />
+    <result column="constraints" property="constraints" jdbcType="VARCHAR" />
+    <result column="target_size" property="targetSize" jdbcType="VARCHAR" />
+    <result column="update_switch" property="updateSwitch" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, app_name, app_version, app_type, app_file_path, app_qrcode_path, app_log, app_time, 
+    constraints, target_size, update_switch
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from mobile_version
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByAppNameAndAppTypeOrderByAppVersion" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from mobile_version
+    where app_name = #{appName,jdbcType=VARCHAR}
+    and app_type = #{appType,jdbcType=VARCHAR}
+    and update_switch = '1'
+    order by app_version desc
+    limit 1
+  </select>
+</mapper>

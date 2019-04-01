@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.ChoiceUserMapper">
+    <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.ChoiceUser">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="user_no" jdbcType="VARCHAR" property="userNo"/>
+        <result column="choice_type" jdbcType="VARCHAR" property="choiceType"/>
+        <result column="resource_no" jdbcType="VARCHAR" property="resourceNo"/>
+        <result column="get_no" jdbcType="VARCHAR" property="getNo"/>
+        <result column="coupon_no" jdbcType="VARCHAR" property="couponNo"/>
+        <result column="get_date" jdbcType="TIMESTAMP" property="getDate"/>
+        <result column="pay_num" jdbcType="INTEGER" property="payNum"/>
+        <result column="use_state" jdbcType="VARCHAR" property="useState"/>
+        <result column="use_date" jdbcType="TIMESTAMP" property="useDate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, user_no, choice_type, resource_no, get_no, coupon_no, get_date, pay_num, use_state, 
+    use_date
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from choice_user
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from choice_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.ChoiceUser">
+    insert into choice_user (id, user_no, choice_type, 
+      resource_no, get_no, coupon_no, 
+      get_date, pay_num, use_state, 
+      use_date)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{choiceType,jdbcType=VARCHAR}, 
+      #{resourceNo,jdbcType=VARCHAR}, #{getNo,jdbcType=VARCHAR}, #{couponNo,jdbcType=VARCHAR}, 
+      #{getDate,jdbcType=TIMESTAMP}, #{payNum,jdbcType=INTEGER}, #{useState,jdbcType=VARCHAR}, 
+      #{useDate,jdbcType=TIMESTAMP})
+  </insert>
+    <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceUser">
+        insert into choice_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userNo != null">
+                user_no,
+            </if>
+            <if test="choiceType != null">
+                choice_type,
+            </if>
+            <if test="resourceNo != null">
+                resource_no,
+            </if>
+            <if test="getNo != null">
+                get_no,
+            </if>
+            <if test="couponNo != null">
+                coupon_no,
+            </if>
+            <if test="getDate != null">
+                get_date,
+            </if>
+            <if test="payNum != null">
+                pay_num,
+            </if>
+            <if test="useState != null">
+                use_state,
+            </if>
+            <if test="useDate != null">
+                use_date,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="userNo != null">
+                #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="choiceType != null">
+                #{choiceType,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceNo != null">
+                #{resourceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="getNo != null">
+                #{getNo,jdbcType=VARCHAR},
+            </if>
+            <if test="couponNo != null">
+                #{couponNo,jdbcType=VARCHAR},
+            </if>
+            <if test="getDate != null">
+                #{getDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payNum != null">
+                #{payNum,jdbcType=INTEGER},
+            </if>
+            <if test="useState != null">
+                #{useState,jdbcType=VARCHAR},
+            </if>
+            <if test="useDate != null">
+                #{useDate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceUser">
+        update choice_user
+        <set>
+            <if test="userNo != null">
+                user_no = #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="choiceType != null">
+                choice_type = #{choiceType,jdbcType=VARCHAR},
+            </if>
+            <if test="resourceNo != null">
+                resource_no = #{resourceNo,jdbcType=VARCHAR},
+            </if>
+            <if test="getNo != null">
+                get_no = #{getNo,jdbcType=VARCHAR},
+            </if>
+            <if test="couponNo != null">
+                coupon_no = #{couponNo,jdbcType=VARCHAR},
+            </if>
+            <if test="getDate != null">
+                get_date = #{getDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="payNum != null">
+                pay_num = #{payNum,jdbcType=INTEGER},
+            </if>
+            <if test="useState != null">
+                use_state = #{useState,jdbcType=VARCHAR},
+            </if>
+            <if test="useDate != null">
+                use_date = #{useDate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.ChoiceUser">
+    update choice_user
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      choice_type = #{choiceType,jdbcType=VARCHAR},
+      resource_no = #{resourceNo,jdbcType=VARCHAR},
+      get_no = #{getNo,jdbcType=VARCHAR},
+      coupon_no = #{couponNo,jdbcType=VARCHAR},
+      get_date = #{getDate,jdbcType=TIMESTAMP},
+      pay_num = #{payNum,jdbcType=INTEGER},
+      use_state = #{useState,jdbcType=VARCHAR},
+      use_date = #{useDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+    <!--通过唯一券编号查询此券信息-->
+    <select id="getCouponNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from choice_user
+        where coupon_no = #{couponNo,jdbcType=VARCHAR}
+    </select>
+
+    <!--未使用的优惠券-->
+    <select id="getChoiceUserL" resultType="map">
+        SELECT a.user_no,a.resource_no,a.get_no,a.coupon_no,a.pay_num,c.coupon_amount,c.start_date,c.end_date,c.coupon_cover_photo,c.title_desc
+           FROM choice_user a
+               LEFT JOIN choice_user_pay b ON a.get_no = b.pay_no
+               LEFT JOIN choice_info c  ON a.resource_no = c.resource_no
+                    WHERE a.use_state = '10370001' AND b.pay_state = '10380002' AND a.user_no = #{userNo} AND c.end_date &gt; #{date}
+    </select>
+
+    <!--使用的优惠券-->
+    <select id="getChoiceUserSy" resultType="map">
+        SELECT a.user_no,a.get_no,a.coupon_no,a.pay_num,c.coupon_amount,c.title_desc,a.use_date
+           FROM choice_user a
+           LEFT JOIN choice_user_pay b ON a.get_no = b.pay_no
+           LEFT JOIN choice_info c  ON a.resource_no = c.resource_no
+                 WHERE a.use_state = '10370002' AND b.pay_state = '10380002' AND a.user_no = #{userNo}
+    </select>
+
+    <!--查询用户过期的优惠券-->
+    <select id="getChoiceUserGq" resultType="map">
+        SELECT a.user_no,a.resource_no,a.get_no,a.coupon_no,a.pay_num,c.coupon_amount,c.start_date,c.end_date,c.title_desc
+            FROM choice_user a
+            LEFT JOIN choice_user_pay b ON a.get_no = b.pay_no
+            LEFT JOIN choice_info c  ON a.resource_no = c.resource_no
+                  WHERE a.use_state = '10370001' AND b.pay_state = '10380002' AND a.user_no = #{userNo} AND c.end_date &lt; #{date}
+    </select>
+
+</mapper>

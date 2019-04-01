@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.UserAccountLogMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserAccountLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="change_mode" property="changeMode" jdbcType="VARCHAR" />
+    <result column="change_amount" property="changeAmount" jdbcType="DECIMAL" />
+    <result column="change_date" property="changeDate" jdbcType="TIMESTAMP" />
+    <result column="change_no" property="changeNo" jdbcType="VARCHAR" />
+    <result column="change_remark" property="changeRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, change_mode, change_amount, change_date, change_no, change_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_account_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByUserNoList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_account_log
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    and TO_DAYS( NOW( ) ) - TO_DAYS(change_date) = 1
+  </select>
+
+  <select id="getAllListPage" resultType="map">
+    select
+    a.id, user_no, b.code_name as change_mode, change_amount, change_date, change_no, change_remark
+    from user_account_log a
+    left join sys_code b on a.change_mode = b.code_no
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    order by change_date desc
+    limit #{start},#{end}
+  </select>
+
+</mapper>

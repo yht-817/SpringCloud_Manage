@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.chat.server.dao.FriendGroupUserMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.chat.bean.FriendGroupUser">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_no" jdbcType="VARCHAR" property="groupNo" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="friend_user_no" jdbcType="VARCHAR" property="friendUserNo" />
+    <result column="invite_no" jdbcType="VARCHAR" property="inviteNo" />
+    <result column="group_user_state" jdbcType="VARCHAR" property="groupUserState" />
+    <result column="join_date" jdbcType="TIMESTAMP" property="joinDate" />
+    <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, group_no, user_no, friend_user_no, invite_no, group_user_state, join_date, change_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from friend_group_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from friend_group_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.chat.bean.FriendGroupUser">
+    insert into friend_group_user (id, group_no, user_no, 
+      friend_user_no, invite_no, group_user_state, 
+      join_date, change_date)
+    values (#{id,jdbcType=VARCHAR}, #{groupNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{friendUserNo,jdbcType=VARCHAR}, #{inviteNo,jdbcType=VARCHAR}, #{groupUserState,jdbcType=VARCHAR}, 
+      #{joinDate,jdbcType=TIMESTAMP}, #{changeDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.chat.bean.FriendGroupUser">
+    insert into friend_group_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="groupNo != null">
+        group_no,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="friendUserNo != null">
+        friend_user_no,
+      </if>
+      <if test="inviteNo != null">
+        invite_no,
+      </if>
+      <if test="groupUserState != null">
+        group_user_state,
+      </if>
+      <if test="joinDate != null">
+        join_date,
+      </if>
+      <if test="changeDate != null">
+        change_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNo != null">
+        #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="friendUserNo != null">
+        #{friendUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteNo != null">
+        #{inviteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="groupUserState != null">
+        #{groupUserState,jdbcType=VARCHAR},
+      </if>
+      <if test="joinDate != null">
+        #{joinDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.chat.bean.FriendGroupUser">
+    update friend_group_user
+    <set>
+      <if test="groupNo != null">
+        group_no = #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="friendUserNo != null">
+        friend_user_no = #{friendUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="inviteNo != null">
+        invite_no = #{inviteNo,jdbcType=VARCHAR},
+      </if>
+      <if test="groupUserState != null">
+        group_user_state = #{groupUserState,jdbcType=VARCHAR},
+      </if>
+      <if test="joinDate != null">
+        join_date = #{joinDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeDate != null">
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.chat.bean.FriendGroupUser">
+    update friend_group_user
+    set group_no = #{groupNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      friend_user_no = #{friendUserNo,jdbcType=VARCHAR},
+      invite_no = #{inviteNo,jdbcType=VARCHAR},
+      group_user_state = #{groupUserState,jdbcType=VARCHAR},
+      join_date = #{joinDate,jdbcType=TIMESTAMP},
+      change_date = #{changeDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="writeExit" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_group_user
+    where group_no = #{groupNo,jdbcType=VARCHAR}
+    and user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByGroupNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_group_user
+    where group_no = #{groupNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryPageUserGroups" parameterType="java.lang.String" resultType="net.sunwukong.www.chat.vo.QueryGroup">
+    select
+    a.id, a.group_no,b.group_name,b.group_head,b.group_node
+    from friend_group_user a
+    RIGHT JOIN friend_group b ON a.group_no = b.group_no
+    where a.user_no = #{userNo,jdbcType=VARCHAR}
+    and a.group_user_state = #{groupUserState,jdbcType=VARCHAR}
+    and b.group_state = #{groupState,jdbcType=VARCHAR}
+    <if test="size != 0">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="queryPageGroupUsers" parameterType="java.lang.String" resultType="net.sunwukong.www.chat.vo.GroupUsers">
+    select
+    a.id,b.user_no,b.user_head,b.nike_name
+    from friend_group_user a
+    RIGHT JOIN user_info b ON a.user_no = b.user_no
+    where a.group_no = #{groupNo,jdbcType=VARCHAR}
+    and a.group_user_state = #{groupUserState,jdbcType=VARCHAR}
+    <if test="content != null and content != '' ">
+      and b.nike_name LIKE CONCAT('%',#{content,jdbcType=VARCHAR},'%')
+    </if>
+    ORDER BY join_date
+    <if test="size != 0">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="findByGroupNoAndUserNoExists" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_group_user
+    where group_no = #{groupNo,jdbcType=VARCHAR}
+    and user_no = #{userNo,jdbcType=VARCHAR}
+    <if test="groupUserState != null">
+      and group_user_state = #{groupUserState,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="countByGroupNoAndGroupUserState" resultType="java.lang.Integer">
+    select
+    count(1)
+    from friend_group_user
+    where group_no = #{groupNo,jdbcType=VARCHAR}
+    <if test="groupUserState != null">
+      and group_user_state = #{groupUserState,jdbcType=VARCHAR}
+    </if>
+  </select>
+
+  <select id="findByInviteNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_group_user
+    where invite_no = #{inviteNo,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="delByGroupNoAndUserNos">
+    delete from friend_group_user
+    where group_no = #{groupNo,jdbcType=VARCHAR}
+    and user_no IN
+    <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </delete>
+
+  <select id="findByUserNoAndGroupNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_group_user
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    and group_no = #{groupNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

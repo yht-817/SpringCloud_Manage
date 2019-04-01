@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.ServiceScopeOneMapperRead" >
+  <!--对服务范围进行一对多的查询-->
+  <resultMap type="net.sunwukong.www.user.bean.ServiceScopeOne" id="ServiceScopeOneMap">
+    <id column="id" property="id"/>
+    <result column="scope_one_no" property="scopeOneNo"/>
+    <result column="scope_one_name" property="scopeOneName"/>
+    <collection property="listChilds" ofType="net.sunwukong.www.user.bean.ServiceScopeTwo" column="scopeOneNo">
+      <id column="sid" property="id"/>
+      <result column="scope_two_no" property="scopeTwoNo"/>
+      <result column="scope_two_name" property="scopeTwoName"/>
+      <result column="scope_two_icon" property="scopeTwoIcon"/>
+
+    </collection>
+  </resultMap>
+  <!-- 查询一对多的sql语句 -->
+  <select id="getAllList" parameterType="net.sunwukong.www.user.bean.ServiceScopeOne" resultMap="ServiceScopeOneMap">
+    SELECT n.id,n.scope_one_no,n.scope_one_name,t.id AS sid,t.scope_two_no,t.scope_two_name,t.scope_two_icon FROM service_scope_one n
+            LEFT JOIN service_scope_two t ON n.scope_one_no = t.scope_one_no group by n.scope_one_no,t.scope_two_no
+  </select>
+
+  <!-- 发布查询一对多的sql语句 -->
+  <select id="getreleaseAllList" parameterType="net.sunwukong.www.user.bean.ServiceScopeOne" resultMap="ServiceScopeOneMap">
+    SELECT n.id,n.scope_one_no,n.scope_one_name,t.id AS sid,t.scope_two_no,t.scope_two_name,t.scope_two_icon FROM release_scope_one n
+            LEFT JOIN release_scope_two t ON n.scope_one_no = t.scope_one_no group by n.scope_one_no,t.scope_two_no
+  </select>
+
+</mapper>

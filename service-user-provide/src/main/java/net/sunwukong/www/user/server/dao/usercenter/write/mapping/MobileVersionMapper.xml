@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.write.MobileVersionMapperWrite" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.server.model.MobileVersion" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="app_name" property="appName" jdbcType="VARCHAR" />
+    <result column="app_version" property="appVersion" jdbcType="VARCHAR" />
+    <result column="app_type" property="appType" jdbcType="VARCHAR" />
+    <result column="app_file_path" property="appFilePath" jdbcType="VARCHAR" />
+    <result column="app_qrcode_path" property="appQrcodePath" jdbcType="VARCHAR" />
+    <result column="app_log" property="appLog" jdbcType="VARCHAR" />
+    <result column="app_time" property="appTime" jdbcType="TIMESTAMP" />
+    <result column="constraint" property="constraint" jdbcType="VARCHAR" />
+    <result column="target_size" property="targetSize" jdbcType="VARCHAR" />
+    <result column="update_switch" property="updateSwitch" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, app_name, app_version, app_type, app_file_path, app_qrcode_path, app_log, app_time, 
+    constraint, target_size, update_switch
+  </sql>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from mobile_version
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.user.server.model.MobileVersion" >
+    insert into mobile_version (id, app_name, app_version, 
+      app_type, app_file_path, app_qrcode_path, 
+      app_log, app_time, constraint, 
+      target_size, update_switch)
+    values (#{id,jdbcType=VARCHAR}, #{appName,jdbcType=VARCHAR}, #{appVersion,jdbcType=VARCHAR}, 
+      #{appType,jdbcType=VARCHAR}, #{appFilePath,jdbcType=VARCHAR}, #{appQrcodePath,jdbcType=VARCHAR}, 
+      #{appLog,jdbcType=VARCHAR}, #{appTime,jdbcType=TIMESTAMP}, #{constraint,jdbcType=VARCHAR}, 
+      #{targetSize,jdbcType=VARCHAR}, #{updateSwitch,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.user.server.model.MobileVersion" >
+    insert into mobile_version
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appName != null" >
+        app_name,
+      </if>
+      <if test="appVersion != null" >
+        app_version,
+      </if>
+      <if test="appType != null" >
+        app_type,
+      </if>
+      <if test="appFilePath != null" >
+        app_file_path,
+      </if>
+      <if test="appQrcodePath != null" >
+        app_qrcode_path,
+      </if>
+      <if test="appLog != null" >
+        app_log,
+      </if>
+      <if test="appTime != null" >
+        app_time,
+      </if>
+      <if test="constraint != null" >
+        constraint,
+      </if>
+      <if test="targetSize != null" >
+        target_size,
+      </if>
+      <if test="updateSwitch != null" >
+        update_switch,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="appName != null" >
+        #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null" >
+        #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="appType != null" >
+        #{appType,jdbcType=VARCHAR},
+      </if>
+      <if test="appFilePath != null" >
+        #{appFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="appQrcodePath != null" >
+        #{appQrcodePath,jdbcType=VARCHAR},
+      </if>
+      <if test="appLog != null" >
+        #{appLog,jdbcType=VARCHAR},
+      </if>
+      <if test="appTime != null" >
+        #{appTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="constraint != null" >
+        #{constraint,jdbcType=VARCHAR},
+      </if>
+      <if test="targetSize != null" >
+        #{targetSize,jdbcType=VARCHAR},
+      </if>
+      <if test="updateSwitch != null" >
+        #{updateSwitch,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.user.server.model.MobileVersion" >
+    update mobile_version
+    <set >
+      <if test="appName != null" >
+        app_name = #{appName,jdbcType=VARCHAR},
+      </if>
+      <if test="appVersion != null" >
+        app_version = #{appVersion,jdbcType=VARCHAR},
+      </if>
+      <if test="appType != null" >
+        app_type = #{appType,jdbcType=VARCHAR},
+      </if>
+      <if test="appFilePath != null" >
+        app_file_path = #{appFilePath,jdbcType=VARCHAR},
+      </if>
+      <if test="appQrcodePath != null" >
+        app_qrcode_path = #{appQrcodePath,jdbcType=VARCHAR},
+      </if>
+      <if test="appLog != null" >
+        app_log = #{appLog,jdbcType=VARCHAR},
+      </if>
+      <if test="appTime != null" >
+        app_time = #{appTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="constraint != null" >
+        constraint = #{constraint,jdbcType=VARCHAR},
+      </if>
+      <if test="targetSize != null" >
+        target_size = #{targetSize,jdbcType=VARCHAR},
+      </if>
+      <if test="updateSwitch != null" >
+        update_switch = #{updateSwitch,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.user.server.model.MobileVersion" >
+    update mobile_version
+    set app_name = #{appName,jdbcType=VARCHAR},
+      app_version = #{appVersion,jdbcType=VARCHAR},
+      app_type = #{appType,jdbcType=VARCHAR},
+      app_file_path = #{appFilePath,jdbcType=VARCHAR},
+      app_qrcode_path = #{appQrcodePath,jdbcType=VARCHAR},
+      app_log = #{appLog,jdbcType=VARCHAR},
+      app_time = #{appTime,jdbcType=TIMESTAMP},
+      constraint = #{constraint,jdbcType=VARCHAR},
+      target_size = #{targetSize,jdbcType=VARCHAR},
+      update_switch = #{updateSwitch,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

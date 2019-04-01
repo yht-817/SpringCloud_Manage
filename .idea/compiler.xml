@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="config-server" />
+        <module name="eureka-server" />
+        <module name="service-api" />
+        <module name="service-base" />
+        <module name="service-chat-api" />
+        <module name="service-chat-consumer" />
+        <module name="service-chat-provide" />
+        <module name="service-marketing-api" />
+        <module name="service-marketing-consumer" />
+        <module name="service-marketing-provide" />
+        <module name="service-user-api" />
+        <module name="service-user-consumer" />
+        <module name="service-user-provide" />
+        <module name="service-zuul" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="service-file-consumer" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

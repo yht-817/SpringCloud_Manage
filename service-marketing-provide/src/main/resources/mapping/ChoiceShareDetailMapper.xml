@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.ChoiceShareDetailMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.ChoiceShareDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="share_no" property="shareNo" jdbcType="VARCHAR" />
+    <result column="pay_no" property="payNo" jdbcType="VARCHAR" />
+    <result column="share_rebate_amount" property="shareRebateAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, share_no, pay_no, share_rebate_amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from choice_share_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from choice_share_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.ChoiceShareDetail" >
+    insert into choice_share_detail (id, user_no, share_no, 
+      pay_no, share_rebate_amount)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{shareNo,jdbcType=VARCHAR}, 
+      #{payNo,jdbcType=VARCHAR}, #{shareRebateAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceShareDetail" >
+    insert into choice_share_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="shareNo != null" >
+        share_no,
+      </if>
+      <if test="payNo != null" >
+        pay_no,
+      </if>
+      <if test="shareRebateAmount != null" >
+        share_rebate_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shareNo != null" >
+        #{shareNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payNo != null" >
+        #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRebateAmount != null" >
+        #{shareRebateAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceShareDetail" >
+    update choice_share_detail
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shareNo != null" >
+        share_no = #{shareNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payNo != null" >
+        pay_no = #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shareRebateAmount != null" >
+        share_rebate_amount = #{shareRebateAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.ChoiceShareDetail" >
+    update choice_share_detail
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      share_no = #{shareNo,jdbcType=VARCHAR},
+      pay_no = #{payNo,jdbcType=VARCHAR},
+      share_rebate_amount = #{shareRebateAmount,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

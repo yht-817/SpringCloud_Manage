@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.user.server.dao.chatmess.read.FriendInviteMapperRead">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.FriendInvite">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="friend_user_no" jdbcType="VARCHAR" property="friendUserNo" />
+    <result column="invite_no" jdbcType="VARCHAR" property="inviteNo" />
+    <result column="invite_date" jdbcType="TIMESTAMP" property="inviteDate" />
+    <result column="verify_info" jdbcType="VARCHAR" property="verifyInfo" />
+    <result column="invite_state" jdbcType="VARCHAR" property="inviteState" />
+    <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_no, friend_user_no, invite_no, invite_date, verify_info, invite_state, change_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from friend_invite
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByUserNoAndFriendUserNoAndinviteState" resultType="java.lang.Integer">
+    select
+    count(1)
+    from friend_invite
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    AND friend_user_no = #{friendUserNo,jdbcType=VARCHAR}
+    AND invite_state = #{inviteState,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

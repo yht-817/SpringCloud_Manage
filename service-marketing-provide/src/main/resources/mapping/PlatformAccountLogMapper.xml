@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.PlatformAccountLogMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.PlatformAccountLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="change_mode" jdbcType="VARCHAR" property="changeMode" />
+    <result column="change_amount" jdbcType="DECIMAL" property="changeAmount" />
+    <result column="change_date" jdbcType="TIMESTAMP" property="changeDate" />
+    <result column="change_no" jdbcType="VARCHAR" property="changeNo" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="change_remark" jdbcType="VARCHAR" property="changeRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, change_mode, change_amount, change_date, change_no, user_no, change_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from platform_account_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from platform_account_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.PlatformAccountLog">
+    insert into platform_account_log (id, change_mode, change_amount, 
+      change_date, change_no, user_no, 
+      change_remark)
+    values (#{id,jdbcType=VARCHAR}, #{changeMode,jdbcType=VARCHAR}, #{changeAmount,jdbcType=DECIMAL}, 
+      #{changeDate,jdbcType=TIMESTAMP}, #{changeNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{changeRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.PlatformAccountLog">
+    insert into platform_account_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="changeMode != null">
+        change_mode,
+      </if>
+      <if test="changeAmount != null">
+        change_amount,
+      </if>
+      <if test="changeDate != null">
+        change_date,
+      </if>
+      <if test="changeNo != null">
+        change_no,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="changeRemark != null">
+        change_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="changeMode != null">
+        #{changeMode,jdbcType=VARCHAR},
+      </if>
+      <if test="changeAmount != null">
+        #{changeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null">
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeNo != null">
+        #{changeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="changeRemark != null">
+        #{changeRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.PlatformAccountLog">
+    update platform_account_log
+    <set>
+      <if test="changeMode != null">
+        change_mode = #{changeMode,jdbcType=VARCHAR},
+      </if>
+      <if test="changeAmount != null">
+        change_amount = #{changeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null">
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeNo != null">
+        change_no = #{changeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="changeRemark != null">
+        change_remark = #{changeRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.PlatformAccountLog">
+    update platform_account_log
+    set change_mode = #{changeMode,jdbcType=VARCHAR},
+      change_amount = #{changeAmount,jdbcType=DECIMAL},
+      change_date = #{changeDate,jdbcType=TIMESTAMP},
+      change_no = #{changeNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      change_remark = #{changeRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

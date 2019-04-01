@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.SysDemandDivideMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.SysDemandDivide">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="demand_divide" jdbcType="DECIMAL" property="demandDivide" />
+    <result column="receipt_divide" jdbcType="DECIMAL" property="receiptDivide" />
+    <result column="service_divide" jdbcType="DECIMAL" property="serviceDivide" />
+    <result column="manger_divide" jdbcType="DECIMAL" property="mangerDivide" />
+    <result column="platform_divide" jdbcType="DECIMAL" property="platformDivide" />
+    <result column="divide_execstate" jdbcType="VARCHAR" property="divideExecstate" />
+    <result column="user_no_platform" jdbcType="VARCHAR" property="userNoPlatform" />
+    <result column="user_name_platform" jdbcType="VARCHAR" property="userNamePlatform" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, create_date, demand_divide, receipt_divide, service_divide, manger_divide, platform_divide, 
+    divide_execstate, user_no_platform, user_name_platform
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_demand_divide
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sys_demand_divide
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.SysDemandDivide">
+    insert into sys_demand_divide (id, create_date, demand_divide, 
+      receipt_divide, service_divide, manger_divide, 
+      platform_divide, divide_execstate, user_no_platform, 
+      user_name_platform)
+    values (#{id,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{demandDivide,jdbcType=DECIMAL},
+      #{receiptDivide,jdbcType=DECIMAL}, #{serviceDivide,jdbcType=DECIMAL}, #{mangerDivide,jdbcType=DECIMAL}, 
+      #{platformDivide,jdbcType=DECIMAL}, #{divideExecstate,jdbcType=VARCHAR}, #{userNoPlatform,jdbcType=VARCHAR}, 
+      #{userNamePlatform,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.SysDemandDivide">
+    insert into sys_demand_divide
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="demandDivide != null">
+        demand_divide,
+      </if>
+      <if test="receiptDivide != null">
+        receipt_divide,
+      </if>
+      <if test="serviceDivide != null">
+        service_divide,
+      </if>
+      <if test="mangerDivide != null">
+        manger_divide,
+      </if>
+      <if test="platformDivide != null">
+        platform_divide,
+      </if>
+      <if test="divideExecstate != null">
+        divide_execstate,
+      </if>
+      <if test="userNoPlatform != null">
+        user_no_platform,
+      </if>
+      <if test="userNamePlatform != null">
+        user_name_platform,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="demandDivide != null">
+        #{demandDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptDivide != null">
+        #{receiptDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceDivide != null">
+        #{serviceDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="mangerDivide != null">
+        #{mangerDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="platformDivide != null">
+        #{platformDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="divideExecstate != null">
+        #{divideExecstate,jdbcType=VARCHAR},
+      </if>
+      <if test="userNoPlatform != null">
+        #{userNoPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="userNamePlatform != null">
+        #{userNamePlatform,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.SysDemandDivide">
+    update sys_demand_divide
+    <set>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="demandDivide != null">
+        demand_divide = #{demandDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="receiptDivide != null">
+        receipt_divide = #{receiptDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceDivide != null">
+        service_divide = #{serviceDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="mangerDivide != null">
+        manger_divide = #{mangerDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="platformDivide != null">
+        platform_divide = #{platformDivide,jdbcType=DECIMAL},
+      </if>
+      <if test="divideExecstate != null">
+        divide_execstate = #{divideExecstate,jdbcType=VARCHAR},
+      </if>
+      <if test="userNoPlatform != null">
+        user_no_platform = #{userNoPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="userNamePlatform != null">
+        user_name_platform = #{userNamePlatform,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.SysDemandDivide">
+    update sys_demand_divide
+    set create_date = #{createDate,jdbcType=TIMESTAMP},
+      demand_divide = #{demandDivide,jdbcType=DECIMAL},
+      receipt_divide = #{receiptDivide,jdbcType=DECIMAL},
+      service_divide = #{serviceDivide,jdbcType=DECIMAL},
+      manger_divide = #{mangerDivide,jdbcType=DECIMAL},
+      platform_divide = #{platformDivide,jdbcType=DECIMAL},
+      divide_execstate = #{divideExecstate,jdbcType=VARCHAR},
+      user_no_platform = #{userNoPlatform,jdbcType=VARCHAR},
+      user_name_platform = #{userNamePlatform,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="selectOne" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_center.sys_demand_divide
+    limit 1
+  </select>
+</mapper>

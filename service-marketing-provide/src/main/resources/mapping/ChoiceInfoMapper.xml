@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.ChoiceInfoMapper">
+    <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.ChoiceInfo">
+        <id column="id" jdbcType="VARCHAR" property="id"/>
+        <result column="choice_type" jdbcType="VARCHAR" property="choiceType"/>
+        <result column="user_no" jdbcType="VARCHAR" property="userNo"/>
+        <result column="resource_no" jdbcType="VARCHAR" property="resourceNo"/>
+        <result column="resource_name" jdbcType="VARCHAR" property="resourceName"/>
+        <result column="search_keyword" jdbcType="VARCHAR" property="searchKeyword"/>
+        <result column="put_num" jdbcType="INTEGER" property="putNum"/>
+        <result column="pay_num" jdbcType="INTEGER" property="payNum"/>
+        <result column="max_pay_num" jdbcType="INTEGER" property="maxPayNum"/>
+        <result column="unit" jdbcType="VARCHAR" property="unit"/>
+        <result column="coupon_amount" jdbcType="DECIMAL" property="couponAmount"/>
+        <result column="pay_amount" jdbcType="DECIMAL" property="payAmount"/>
+        <result column="pay_amount_wukb" jdbcType="DECIMAL" property="payAmountWukb"/>
+        <result column="cost_amount" jdbcType="DECIMAL" property="costAmount"/>
+        <result column="share_rebate_amount" jdbcType="DECIMAL" property="shareRebateAmount"/>
+        <result column="cut_min_amount" jdbcType="DECIMAL" property="cutMinAmount"/>
+        <result column="start_date" jdbcType="TIMESTAMP" property="startDate"/>
+        <result column="end_date" jdbcType="TIMESTAMP" property="endDate"/>
+        <result column="title_desc" jdbcType="VARCHAR" property="titleDesc"/>
+        <result column="use_rules" jdbcType="VARCHAR" property="useRules"/>
+        <result column="use_explain" jdbcType="VARCHAR" property="useExplain"/>
+        <result column="copywrit_url" jdbcType="VARCHAR" property="copywritUrl"/>
+        <result column="position_no" jdbcType="VARCHAR" property="positionNo"/>
+        <result column="banner_photo" jdbcType="VARCHAR" property="bannerPhoto"/>
+        <result column="detail_photo" jdbcType="VARCHAR" property="detailPhoto"/>
+        <result column="home_middle_photo" jdbcType="VARCHAR" property="homeMiddlePhoto"/>
+        <result column="home_small_photo" jdbcType="VARCHAR" property="homeSmallPhoto"/>
+        <result column="coupon_cover_photo" jdbcType="VARCHAR" property="couponCoverPhoto"/>
+        <result column="praise_num" jdbcType="INTEGER" property="praiseNum"/>
+        <result column="merchant_name" jdbcType="VARCHAR" property="merchantName"/>
+        <result column="merchant_contract" jdbcType="VARCHAR" property="merchantContract"/>
+        <result column="merchant_phone" jdbcType="VARCHAR" property="merchantPhone"/>
+        <result column="merchant_address" jdbcType="VARCHAR" property="merchantAddress"/>
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
+        <result column="user_no_platform" jdbcType="VARCHAR" property="userNoPlatform"/>
+        <result column="user_name_platform" jdbcType="VARCHAR" property="userNamePlatform"/>
+        <result column="audit_state" jdbcType="VARCHAR" property="auditState"/>
+        <result column="audit_date" jdbcType="TIMESTAMP" property="auditDate"/>
+        <result column="execute_state" jdbcType="VARCHAR" property="executeState"/>
+        <result column="share_photo" jdbcType="VARCHAR" property="sharephoto"/>
+        <result column="home_top_photo" jdbcType="VARCHAR" property="homeTopPhoto"/>
+
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, choice_type, user_no, resource_no, resource_name, search_keyword, put_num, pay_num,
+        max_pay_num, unit, coupon_amount, pay_amount, pay_amount_wukb, cost_amount, share_rebate_amount,
+        cut_min_amount, start_date, end_date, title_desc,use_rules,use_explain, copywrit_url, position_no,
+        banner_photo, detail_photo, home_middle_photo, home_small_photo, coupon_cover_photo,
+        praise_num, merchant_name, merchant_contract, merchant_phone, merchant_address, create_date,
+        user_no_platform, user_name_platform, audit_state, audit_date, execute_state,share_photo
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from choice_info
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <!--通过布局位置获取分页列表信息-->
+    <!--AND resource_name LIKE CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%')-->
+    <select id="getListByPositionNo" parameterType="map" resultMap="BaseResultMap">
+        SELECT
+        ci.id, choice_type, ci.resource_no, resource_name, put_num, pay_num,
+        max_pay_num, unit, coupon_amount, pay_amount, pay_amount_wukb, cost_amount, share_rebate_amount,
+        cut_min_amount, start_date, end_date, title_desc, position_no,
+        banner_photo, detail_photo, home_middle_photo, home_small_photo, coupon_cover_photo, praise_num,ci.home_top_photo
+        <choose>
+            <when test="keyword != null">
+                ,order_num,1/order_num as od
+                FROM choice_info ci
+                LEFT JOIN choice_info_search_keyword ke ON ke.resource_no = ci.resource_no
+            </when>
+            <otherwise>
+                FROM choice_info ci
+                LEFT JOIN choice_info_search_keyword ke ON ke.resource_no = ci.resource_no
+            </otherwise>
+        </choose>
+        WHERE ci.execute_state = '10210002'
+        <if test="auditState != null">
+            AND audit_state = #{auditState,jdbcType=VARCHAR}
+        </if>
+        <if test="positionNo != null">
+            AND position_no = #{positionNo,jdbcType=VARCHAR}
+        </if>
+        <if test="positiongoods != null and positiongoods != ''">
+            AND position_goods LIKE CONCAT('%',#{positiongoods},'%')
+        </if>
+        GROUP BY ke.order_num DESC,create_date DESC LIMIT ${start}, ${end}
+    </select>
+
+    <!--通过资源编码查询精选详情-->
+    <select id="getDetailByResourceNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from choice_info
+        where resource_no = #{resourceNo,jdbcType=VARCHAR}
+    </select>
+
+    <!--通过布局位置获取总条数-->
+    <!--AND resource_name LIKE CONCAT(CONCAT('%', #{keyword,jdbcType=VARCHAR}), '%')-->
+    <select id="getTotal" parameterType="map" resultType="java.lang.Integer">
+        SELECT
+        COUNT(ci.id)
+        FROM choice_info ci
+        <if test="keyword != null">
+            LEFT JOIN choice_info_search_keyword ke ON ke.resource_no = ci.resource_no
+        </if>
+        WHERE 1=1
+        <if test="auditState != null">
+            AND audit_state = #{auditState,jdbcType=VARCHAR}
+        </if>
+        <if test="positionNo != null">
+            AND position_no = #{positionNo,jdbcType=VARCHAR}
+        </if>
+        <if test="keyword != null">
+            AND ke.search_keyword = #{keyword,jdbcType=VARCHAR}
+        </if>
+    </select>
+
+    <!--用资源编码查询精选的数据 -->
+    <select id="getChoiceInfo" resultType="map">
+        select choice_type,resource_no,resource_name,put_num,pay_num,pay_amount,max_pay_num,pay_amount_wukb,start_date,end_date,title_desc,home_small_photo from choice_info where resource_no = #{resourceNo}
+    </select>
+
+    <!--插入用户精选信息的数据-->
+    <insert id="insertChoiceuser">
+        insert  into choice_user(id,user_no,choice_type,resource_no,get_no,coupon_no,get_date,use_state,pay_num)
+                      values (#{id},#{userNo},#{choicetype},#{resourceNo},#{payNo},#{couponNo},#{date},#{usestate},#{payNum})
+    </insert>
+
+    <!--插入用户精选支付的信息数据-->
+    <insert id="insertChoicepay">
+        insert  into choice_user_pay(id,user_no,pay_no,choice_type,resource_no,pay_amount_wukb,wukb_case,pay_amount,pay_state,pay_date)
+                      values (#{id},#{userNo},#{payNo},#{choicetype},#{resourceNo},#{wukbsum},'10420001',#{payamount},#{paystate},#{date})
+    </insert>
+
+    <!--插入分享的信息-->
+    <insert id="insertShareInfo">
+        insert  into choice_share_info(id,share_no,user_no,choice_type,resource_no,share_date)
+                      values (#{id},#{shareNo},#{userNo},#{choiceType},#{resourceNo},#{date})
+    </insert>
+
+
+    <!--查询商家券码的信息-->
+    <select id="selectifthere" resultType="String">
+        select merchant_code_stamp from code_stamps where resource_no = #{resourceNo} AND buy_state = '105301' LIMIT 1
+    </select>
+
+    <!--修改当前券的已经使用状态-->
+    <update id="updatecouponNo">
+        update code_stamps set buy_state = '105302' where  resource_no = #{resourceNo} and  merchant_code_stamp = #{couponNo}
+    </update>
+
+    <!--修改当前购买的张数-->
+    <update id="uppayNum">
+        update choice_info set pay_num = pay_num + 1 where  resource_no = #{resourceNo}
+    </update>
+
+    <!--修改用户取消订单后修改商户的券状态-->
+    <update id="upCoupon">
+        update code_stamps set buy_state = '105301' where  resource_no = #{resourceNo} and  merchant_code_stamp = #{couponNo}
+    </update>
+
+    <!--取消订单增加购买的次数-->
+    <update id="updateBysum">
+        update choice_info set pay_num = pay_num - 1 where  resource_no = #{resourceNo}
+    </update>
+
+    <!--查看用户是否存在-->
+    <select id="getPhone" resultType="String">
+        SELECT phone_no FROM user_info WHERE user_no = #{userNo}
+    </select>
+    <!--查询超时的订单-->
+    <select id="getDataList" resultType="map">
+        SELECT a.resource_no,a.coupon_no,a.get_no FROM choice_user a LEFT JOIN choice_user_pay b  ON a.get_no = b.pay_no WHERE b.pay_state = '10380001' AND a.get_date &lt;= #{timet}
+    </select>
+
+    <!--删除当前的订单-->
+    <delete id="deletePay">
+         delete choice_user,choice_user_pay from choice_user inner join choice_user_pay on choice_user.get_no = choice_user_pay.pay_no where choice_user.get_no = #{getNo}
+    </delete>
+
+    <!--修改当前资源的状态-->
+    <update id="updatePay">
+         update code_stamps set buy_state = '105301' where  resource_no = #{resourceNo} and merchant_code_stamp = #{couponNo}
+    </update>
+
+    <!--查询当前订单-->
+    <select id="selectPs" resultType="String">
+        SELECT pay_state FROM choice_user_pay WHERE pay_no = #{getNo}
+    </select>
+
+
+</mapper>

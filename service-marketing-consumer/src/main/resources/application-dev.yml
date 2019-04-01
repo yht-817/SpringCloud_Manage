@@ -1,0 +1,34 @@
+server:
+  port: 8022
+spring:
+  application:
+    name: marketing-client
+#  cloud:
+#    config:
+#      discovery:
+#        enabled: true
+#        service-id: config-server
+#      profile: prod
+eureka:
+  client:
+    service-url:
+      #defaultZone: http://47.98.139.112:8761/eureka/
+      defaultZone: http://127.0.0.1:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+ribbon:
+  #：请求处理的超时时间
+  ReadTimeout: 60000
+  #：请求连接的超时时间
+  ConnectTimeout: 60000
+
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: false
+        isolation:
+          thread:
+            timeoutInMilliseconds: 6000

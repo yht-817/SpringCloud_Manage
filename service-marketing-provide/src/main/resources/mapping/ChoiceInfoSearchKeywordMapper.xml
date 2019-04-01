@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.ChoiceInfoSearchKeywordMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.ChoiceInfoSearchKeyword" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="resource_no" property="resourceNo" jdbcType="VARCHAR" />
+    <result column="search_keyword" property="searchKeyword" jdbcType="VARCHAR" />
+    <result column="order_num" property="orderNum" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, resource_no, search_keyword, order_num
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from choice_info_search_keyword
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from choice_info_search_keyword
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.ChoiceInfoSearchKeyword" >
+    insert into choice_info_search_keyword (id, resource_no, search_keyword, 
+      order_num)
+    values (#{id,jdbcType=VARCHAR}, #{resourceNo,jdbcType=VARCHAR}, #{searchKeyword,jdbcType=VARCHAR}, 
+      #{orderNum,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceInfoSearchKeyword" >
+    insert into choice_info_search_keyword
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="resourceNo != null" >
+        resource_no,
+      </if>
+      <if test="searchKeyword != null" >
+        search_keyword,
+      </if>
+      <if test="orderNum != null" >
+        order_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceNo != null" >
+        #{resourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="searchKeyword != null" >
+        #{searchKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        #{orderNum,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceInfoSearchKeyword" >
+    update choice_info_search_keyword
+    <set >
+      <if test="resourceNo != null" >
+        resource_no = #{resourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="searchKeyword != null" >
+        search_keyword = #{searchKeyword,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNum != null" >
+        order_num = #{orderNum,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.ChoiceInfoSearchKeyword" >
+    update choice_info_search_keyword
+    set resource_no = #{resourceNo,jdbcType=VARCHAR},
+      search_keyword = #{searchKeyword,jdbcType=VARCHAR},
+      order_num = #{orderNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--获取推荐的关键词列表-->
+  <!--SELECT-->
+  <!--DISTINCT search_keyword, id, resource_no, order_num-->
+  <!--FROM choice_info_search_keyword-->
+  <!--ORDER by order_num ASC-->
+  <select id="getHotList" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    SELECT
+    DISTINCT search_keyword, id, resource_no, order_num,1/order_num as od
+    FROM choice_info_search_keyword
+	ORDER BY od DESC
+	LIMIT 9
+  </select>
+
+</mapper>

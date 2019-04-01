@@ -1,0 +1,23 @@
+server:
+  port: 8751
+spring:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://gitee.com/swknet/config-server.git
+          username: 18602822000@163.com
+          password: Chuck88%Bb666^^swk
+  application:
+    name: config-server
+eureka:
+
+
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8761/eureka/,http://127.0.0.1:8762/eureka/
+  instance:
+    prefer-ip-address: true
+management:
+  security:
+    enabled: false

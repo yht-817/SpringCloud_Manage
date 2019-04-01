@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.ChoiceShareInfoMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.ChoiceShareInfo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="share_no" property="shareNo" jdbcType="VARCHAR" />
+    <result column="choice_type" property="choiceType" jdbcType="VARCHAR" />
+    <result column="resource_no" property="resourceNo" jdbcType="VARCHAR" />
+    <result column="share_date" property="shareDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, share_no, choice_type, resource_no, share_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from choice_share_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from choice_share_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.ChoiceShareInfo" >
+    insert into choice_share_info (id, user_no, share_no, 
+      choice_type, resource_no, share_date
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{shareNo,jdbcType=VARCHAR}, 
+      #{choiceType,jdbcType=VARCHAR}, #{resourceNo,jdbcType=VARCHAR}, #{shareDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceShareInfo" >
+    insert into choice_share_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="shareNo != null" >
+        share_no,
+      </if>
+      <if test="choiceType != null" >
+        choice_type,
+      </if>
+      <if test="resourceNo != null" >
+        resource_no,
+      </if>
+      <if test="shareDate != null" >
+        share_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shareNo != null" >
+        #{shareNo,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceType != null" >
+        #{choiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceNo != null" >
+        #{resourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shareDate != null" >
+        #{shareDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceShareInfo" >
+    update choice_share_info
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shareNo != null" >
+        share_no = #{shareNo,jdbcType=VARCHAR},
+      </if>
+      <if test="choiceType != null" >
+        choice_type = #{choiceType,jdbcType=VARCHAR},
+      </if>
+      <if test="resourceNo != null" >
+        resource_no = #{resourceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="shareDate != null" >
+        share_date = #{shareDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.ChoiceShareInfo" >
+    update choice_share_info
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      share_no = #{shareNo,jdbcType=VARCHAR},
+      choice_type = #{choiceType,jdbcType=VARCHAR},
+      resource_no = #{resourceNo,jdbcType=VARCHAR},
+      share_date = #{shareDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--通过唯一分享单号查询分享信息-->
+  <select id="getByShareNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from choice_share_info
+    where share_no = #{shareNo,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

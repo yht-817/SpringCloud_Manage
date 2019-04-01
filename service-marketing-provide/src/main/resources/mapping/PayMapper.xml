@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.PayinfoMapper">
+    <!--购买蟠桃的信息-->
+    <insert id="add_Peachnumber_Pay">
+        insert  into user_recharge(id,recharge_no,user_no,pay_num,send_num,recharge_amount,pay_no,recharge_state,recharge_date)
+                      values (#{id},#{recharge_no},#{userno},#{peachnumber},#{givpeachnumber},#{amount},#{ali_wxin},'10130002',#{date})
+    </insert>
+    <!--支付宝查询当前的订单-->
+    <select id="find_Data_Bak" resultType="map">
+        SELECT recharge_amount,recharge_state,recharge_no,pay_num,send_num,user_no FROM user_recharge WHERE recharge_no = #{outtradeno}
+    </select>
+    <!--修改当前订单的的支付状态-->
+    <update id="update_States">
+        UPDATE user_recharge SET pay_bill_no = #{trade_no} , recharge_state = '10130001' WHERE recharge_no = #{outtradeno}
+    </update>
+    <!--精选支付-->
+    <insert id="add_Rinfo">
+        insert  into choice_user_pay_detail(id,user_no,pay_no,pay_mode_no,pay_amount) values (#{id},#{userNo},#{payNo},#{payT},#{payAmount})
+    </insert>
+    <!--查询精选支付的状况-->
+    <select id="find_Data_Sift" resultType="map">
+        SELECT pay_amount,pay_state,user_no,resource_no FROM choice_user_pay where pay_no = #{outtradeno}
+    </select>
+    <!--获取总的悟空币-->
+    <select id="getSumCoin" resultType="map">
+        SELECT account_amount FROM platform_account
+    </select>
+    <!--修改总金额-->
+    <update id="update_SumCoin">
+        UPDATE platform_account SET account_amount = #{subtractcoin}
+    </update>
+    <!--插入平台的账户日志表-->
+    <insert id="update_SumCoinInfo">
+        insert  into platform_account_log(id,user_no,change_remark,change_no,change_date,change_amount,change_mode)
+                      values (#{id},#{userNo},#{conde},#{outtradeno},#{date},#{sumcoin},#{changemode})
+    </insert>
+    <!--查询用户金额-->
+    <select id="getUserInfoCoin" resultType="map">
+        SELECT account_amount FROM user_center.user_account where user_no = #{userNo}
+    </select>
+    <!--修改用户的总金额日志-->
+    <update id="update_Upusersuminfo">
+        UPDATE user_center.user_account SET account_amount = #{upusercoin} where user_no = #{userNo}
+    </update>
+    <!--添加用户记录金额变动日志-->
+    <insert id="update_Upsumcininfodata">
+        insert  into user_center.user_account_log(id,user_no,change_no,change_remark,change_date,change_amount,change_mode)
+                      values (#{id},#{userNo},#{outtradeno},#{conde},#{date},#{sumcoin},'10050004')
+    </insert>
+    <!--精选支付的查询用户蟠桃的数量-->
+    <select id="find_UserCoin" resultType="BigDecimal">
+        SELECT account_amount FROM user_center.user_account where user_no = #{userNo}
+    </select>
+    <!--精选用户购买日志的变动记录-->
+    <!--<insert id="add_Insert_Log">-->
+        <!--insert  into user_center.user_account_log(id,user_no,change_no,change_remark,change_date,change_amount,change_mode)-->
+                      <!--values (#{id},#{userNo},#{payNo},'精选购买',#{date},#{payAmount},'10050008')-->
+    <!--</insert>-->
+    <!--精选查询当前订单和当前用户编码的支付抵消金额-->
+    <select id="get_Usergetcoin_J" resultType="BigDecimal">
+        SELECT change_amount FROM user_center.user_account_log where user_no = #{userNo} and change_no = #{outtradeno}
+    </select>
+    <!--插入分享购买的支付信息-->
+    <insert id="add_Insert_Share">
+        insert  into choice_share_detail(id,share_no,user_no,pay_no,share_rebate_amount)
+                      values (#{id},#{shareNo},#{userNo},#{buyNo},#{shareAmount})
+    </insert>
+    <!--根据购买单号获取分享信息-->
+    <select id="getUserNo" resultType="map">
+         SELECT b.user_no,a.share_rebate_amount,b.resource_no FROM choice_share_detail a LEFT JOIN choice_share_info b ON a.share_no = b.share_no where pay_no = #{outtradeno} LIMIT 1
+    </select>
+    <!--获得用户购买的优惠券编码-->
+    <select id="getByNo" resultType="map">
+        SELECT b.coupon_no,(SELECT phone_no FROM user_info a  WHERE a.user_no = b.user_no) AS phone,c.start_date,c.end_date,c.merchant_name,c.merchant_address,c.merchant_phone FROM choice_user b LEFT JOIN choice_info c ON c.resource_no = b.resource_no where b.get_no = #{outtradeno}
+    </select>
+    <!--修改订单的使用情况-->
+    <update id="updatePeach">
+        UPDATE choice_user_pay SET wukb_case = '10420002' where pay_no = #{payNo}
+    </update>
+    <!--更改平台的蟠桃币-->
+    <update id="update_PtSum">
+         UPDATE platform_account SET account_amount = account_amount - #{shareRebateAmount}
+    </update>
+    <!--查询当前体现日志里面是否存在当前的订单-->
+    <select id="find_TxSum" resultType="int">
+         SELECT COUNT(*) AS sumtx FROM user_center.user_account_log WHERE change_no = #{outtradeno}
+    </select>
+    <!-- 插入体现日志总的日志表-->
+    <insert id="update_TxInfo">
+        insert  into user_center.user_account_log(id,user_no,change_mode,change_amount,change_date,change_no,change_remark)
+                      values (#{id},#{userNo},#{changeMode},#{shareRebateAmount},#{date},#{outtradeno},#{changeRemark})
+    </insert>
+    <!--查询用户可体现蟠桃数-->
+    <select id="find_TxCoin" resultType="BigDecimal">
+        SELECT cash_account_amount FROM user_center.user_account where user_no = #{userNo}
+    </select>
+    <!--修改用户的体现总金额-->
+    <update id="update_Txsuminfo">
+        UPDATE user_center.user_account SET cash_account_amount = #{upusercoin} where user_no = #{userNo}
+    </update>
+    <!--删除体现日志-->
+    <delete id="deleteTxInfo">
+        delete from user_center.user_account_log where change_no = #{outtradeno};
+    </delete>
+    <!--删除平台日志日志-->
+    <delete id="deletePtInfo">
+        delete from platform_account_log where change_no = #{outtradeno};
+    </delete>
+
+    <!--修改后整合的变得记录-->
+    <!--进行用户金额变得进行记录日志-->
+    <insert id="update_UserAccountLog">
+        insert  into user_center.user_account_log(id,user_no,change_no,change_remark,change_date,change_amount,change_mode)
+                      values (#{id},#{userNo},#{outtradeno},#{changeRemark},#{date},#{shareRebateAmount},#{changeMode})
+    </insert>
+    <!--修改精选垢面两个支付的支付状态-->
+    <update id="update_Orderstatus">
+         UPDATE choice_user_pay set pay_amount = #{totalamount} ,pay_date = #{date},pay_state = '10380002'  WHERE pay_no = #{outtradeno}
+    </update>
+    <!--进行可提现的总金额修改-->
+    <update id="update_UserTxSum">
+        UPDATE user_center.user_account SET cash_account_amount = cash_account_amount - #{upusercoin} where user_no = #{userNo}
+    </update>
+    <!--进行不可提现的总金额修改-->
+    <update id="update_UserNoTxSum">
+        UPDATE user_center.user_account SET account_amount = account_amount - #{upusercoin} where user_no = #{userNo}
+    </update>
+    <!--查询当前用户订单是否有效-->
+    <select id="find_cz" resultType="int">
+        select COUNT(*) FROM choice_user where get_no = #{payNo}
+    </select>
+</mapper>

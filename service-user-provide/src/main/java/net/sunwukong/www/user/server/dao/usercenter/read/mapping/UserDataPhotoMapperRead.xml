@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.UserDataPhotoMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserDataPhoto" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="data_photo1" property="dataPhoto1" jdbcType="VARCHAR" />
+    <result column="data_photo2" property="dataPhoto2" jdbcType="VARCHAR" />
+    <result column="data_photo3" property="dataPhoto3" jdbcType="VARCHAR" />
+    <result column="data_photo4" property="dataPhoto4" jdbcType="VARCHAR" />
+    <result column="data_photo5" property="dataPhoto5" jdbcType="VARCHAR" />
+    <result column="data_photo6" property="dataPhoto6" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, data_photo1, data_photo2, data_photo3, data_photo4, data_photo5, data_photo6
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_data_photo
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByUserNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_data_photo
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.UserOtherLoginMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserOtherLogin" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="other_app_type" property="otherAppType" jdbcType="VARCHAR" />
+    <result column="other_app_id" property="otherAppId" jdbcType="VARCHAR" />
+    <result column="other_app_date" property="otherAppDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, other_app_type, other_app_id, other_app_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_other_login
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByUserNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_other_login
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByOtherAppId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_other_login
+    where other_app_id = #{otherAppId,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByOtherAppIdAndOtherAppType" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_other_login
+    where other_app_type = #{otherAppType,jdbcType=VARCHAR}
+    AND other_app_id = #{otherAppId,jdbcType=VARCHAR}
+  </select>
+</mapper>

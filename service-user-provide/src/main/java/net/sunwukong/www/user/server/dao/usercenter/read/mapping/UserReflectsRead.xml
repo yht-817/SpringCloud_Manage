@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.UserReflectsRead">
+    <!--查看用户是否存在账号进行体现处理-->
+    <select id="getContUserInfo" resultType="int">
+        select COUNT(*) from pay_meth where  user_no = #{userNo}
+    </select>
+    <!--查询可提现的金额-->
+    <select id="getTx" resultType="BigDecimal">
+        select cash_account_amount from user_account where  user_no = #{userNo}
+    </select>
+    <!--查看用户是否存在当前的数据-->
+    <select id="getExtis" resultType="int">
+        select COUNT(*) from pay_meth where  user_no = #{userNo}
+    </select>
+    <!--查看当前用户是否还有没有提现成功的-->
+    <select id="exist" resultType="int">
+        select COUNT(*) from  pay_apply where  execution_stat = '105210003'
+    </select>
+    <!-- 查询当前用户的卡信息-->
+    <select id="seeCar" resultType="map">
+        select user_account,bank_name from pay_meth where  user_no = #{userNo}
+    </select>
+    <!--查询卡的信息-->
+    <select id="seeCarInfo" resultType="map">
+        select user_name,user_addres,user_phone,bank_name from pay_meth where  user_no = #{userNo}
+    </select>
+    <!--算一周内的交易次数-->
+    <select id="getTransactionNumber" resultType="int">
+        SELECT COUNT(*) FROM pay_apply where change_date &gt;= #{monday} AND user_no = #{userNo}
+    </select>
+</mapper>

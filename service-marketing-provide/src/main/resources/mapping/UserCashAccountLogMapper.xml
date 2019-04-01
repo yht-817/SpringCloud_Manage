@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.UserCashAccountLogMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.UserCashAccountLog" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="change_mode" property="changeMode" jdbcType="VARCHAR" />
+    <result column="change_amount" property="changeAmount" jdbcType="DECIMAL" />
+    <result column="change_date" property="changeDate" jdbcType="TIMESTAMP" />
+    <result column="change_no" property="changeNo" jdbcType="VARCHAR" />
+    <result column="change_remark" property="changeRemark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, change_mode, change_amount, change_date, change_no, change_remark
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_cash_account_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_cash_account_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.UserCashAccountLog" >
+    insert into user_cash_account_log (id, user_no, change_mode, 
+      change_amount, change_date, change_no, 
+      change_remark)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{changeMode,jdbcType=VARCHAR}, 
+      #{changeAmount,jdbcType=DECIMAL}, #{changeDate,jdbcType=TIMESTAMP}, #{changeNo,jdbcType=VARCHAR}, 
+      #{changeRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.UserCashAccountLog" >
+    insert into user_cash_account_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="changeMode != null" >
+        change_mode,
+      </if>
+      <if test="changeAmount != null" >
+        change_amount,
+      </if>
+      <if test="changeDate != null" >
+        change_date,
+      </if>
+      <if test="changeNo != null" >
+        change_no,
+      </if>
+      <if test="changeRemark != null" >
+        change_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="changeMode != null" >
+        #{changeMode,jdbcType=VARCHAR},
+      </if>
+      <if test="changeAmount != null" >
+        #{changeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null" >
+        #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeNo != null" >
+        #{changeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="changeRemark != null" >
+        #{changeRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.UserCashAccountLog" >
+    update user_cash_account_log
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="changeMode != null" >
+        change_mode = #{changeMode,jdbcType=VARCHAR},
+      </if>
+      <if test="changeAmount != null" >
+        change_amount = #{changeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="changeDate != null" >
+        change_date = #{changeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="changeNo != null" >
+        change_no = #{changeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="changeRemark != null" >
+        change_remark = #{changeRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.UserCashAccountLog" >
+    update user_cash_account_log
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      change_mode = #{changeMode,jdbcType=VARCHAR},
+      change_amount = #{changeAmount,jdbcType=DECIMAL},
+      change_date = #{changeDate,jdbcType=TIMESTAMP},
+      change_no = #{changeNo,jdbcType=VARCHAR},
+      change_remark = #{changeRemark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

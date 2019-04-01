@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.CollectionInfoMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.CollectionInfo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="collection_type" jdbcType="VARCHAR" property="collectionType" />
+    <result column="content_no" jdbcType="VARCHAR" property="contentNo" />
+    <result column="collection_date" jdbcType="TIMESTAMP" property="collectionDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_no, collection_type, content_no, collection_date
+  </sql>
+  <sql id="Base_Column_List_Name_Map">
+    a.id, b.information_no,b.information_photo,b.information_name,d.code_name as set_top_state,e.code_name as hot_state,c.nike_name,c.user_head
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from collection_info
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from collection_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.CollectionInfo">
+    insert into collection_info (id, user_no, collection_type, 
+      content_no, collection_date)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{collectionType,jdbcType=VARCHAR}, 
+      #{contentNo,jdbcType=VARCHAR}, #{collectionDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.CollectionInfo">
+    insert into collection_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="collectionType != null">
+        collection_type,
+      </if>
+      <if test="contentNo != null">
+        content_no,
+      </if>
+      <if test="collectionDate != null">
+        collection_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionType != null">
+        #{collectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentNo != null">
+        #{contentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionDate != null">
+        #{collectionDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.CollectionInfo">
+    update collection_info
+    <set>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionType != null">
+        collection_type = #{collectionType,jdbcType=VARCHAR},
+      </if>
+      <if test="contentNo != null">
+        content_no = #{contentNo,jdbcType=VARCHAR},
+      </if>
+      <if test="collectionDate != null">
+        collection_date = #{collectionDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.CollectionInfo">
+    update collection_info
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      collection_type = #{collectionType,jdbcType=VARCHAR},
+      content_no = #{contentNo,jdbcType=VARCHAR},
+      collection_date = #{collectionDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 分页查询用户收藏的资讯 -->
+  <select id="findByUserNoPageInformation" resultType="map">
+    select
+    b.information_photo,b.information_no,b.information_name,d.code_name as set_top_state,e.code_name as hot_state,c.nike_name,c.user_head,c.user_no
+    from collection_info a
+    LEFT JOIN information b ON a.content_no = b.information_no
+    LEFT JOIN user_info c ON b.user_no = c.user_no
+    LEFT JOIN sys_code d ON b.set_top_state = d.code_no
+    LEFT JOIN sys_code e ON b.hot_state = e.code_no
+    where a.user_no = #{userNo,jdbcType=VARCHAR}
+    and a.collection_type = '10110001'
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+
+  <!-- 分页查询用户收藏的精选 -->
+  <select id="findByUserNoPageChoice" resultType="map">
+    select
+    b.resource_no,b.home_middle_photo,b.resource_name,CONCAT_WS(' 元/',b.pay_amount,b.unit) as pay_amount,b.cost_amount
+    from collection_info a
+    LEFT JOIN choice_info b ON a.content_no = b.resource_no
+    where a.user_no = #{userNo,jdbcType=VARCHAR}
+    and a.collection_type = '10110002'
+    limit #{start,jdbcType=INTEGER},#{size,jdbcType=INTEGER}
+  </select>
+
+  <!-- 根据用户编码和内容编码查询用户收藏信息 -->
+  <select id="findByUserNoAndContentNo" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM collection_info
+    WHERE user_no = #{userNo,jdbcType=VARCHAR}
+    AND content_no = #{contentNo,jdbcType=VARCHAR}
+  </select>
+
+  <!--查询我是否收藏该条精选或资讯-->
+  <select id="getCollectionCount" resultType="java.lang.Boolean">
+    SELECT
+    COUNT(id)
+    FROM collection_info
+    WHERE
+    user_no = #{userNo,jdbcType=VARCHAR}
+    AND collection_type = #{collectionType,jdbcType=VARCHAR}
+    AND content_no = #{contentNo,jdbcType=VARCHAR}
+  </select>
+
+
+  <!--取消该条信息的收藏-->
+  <delete id="deleteByResourceNoAndUserNo" parameterType="java.lang.String">
+    DELETE FROM collection_info
+    WHERE content_no = #{contentNo,jdbcType=VARCHAR}
+    AND user_no = #{userNo,jdbcType=VARCHAR}
+  </delete>
+
+
+</mapper>

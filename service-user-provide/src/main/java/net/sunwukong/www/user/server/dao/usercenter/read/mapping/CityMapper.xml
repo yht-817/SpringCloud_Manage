@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.CityMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.City" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="city_no" property="cityNo" jdbcType="VARCHAR" />
+    <result column="city_name" property="cityName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, city_no, city_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from city
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from city ORDER BY city_no desc
+  </select>
+
+  <select id="findByCity" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from city
+    where city_no = #{cityNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

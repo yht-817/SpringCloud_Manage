@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.InformationClickLogMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.InformationClickLog">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="information_no" jdbcType="VARCHAR" property="informationNo" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="click_date" jdbcType="TIMESTAMP" property="clickDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, information_no, user_no, click_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from information_click_log
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from information_click_log
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.InformationClickLog">
+    insert into information_click_log (id, information_no, user_no, 
+      click_date)
+    values (#{id,jdbcType=VARCHAR}, #{informationNo,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, 
+      #{clickDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.InformationClickLog">
+    insert into information_click_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="informationNo != null">
+        information_no,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="clickDate != null">
+        click_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="informationNo != null">
+        #{informationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="clickDate != null">
+        #{clickDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.InformationClickLog">
+    update information_click_log
+    <set>
+      <if test="informationNo != null">
+        information_no = #{informationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="clickDate != null">
+        click_date = #{clickDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.InformationClickLog">
+    update information_click_log
+    set information_no = #{informationNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      click_date = #{clickDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

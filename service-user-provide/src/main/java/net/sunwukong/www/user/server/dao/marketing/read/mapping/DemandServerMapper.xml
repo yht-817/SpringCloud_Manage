@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.marketing.read.DemandServerMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.server.model.DemandServer" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="super_user_no" property="superUserNo" jdbcType="VARCHAR" />
+    <result column="demand_no" property="demandNo" jdbcType="VARCHAR" />
+    <result column="demand_state" property="demandState" jdbcType="VARCHAR" />
+    <result column="change_date" property="changeDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, super_user_no, demand_no, demand_state, change_date
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from demand_server
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="countByUserNoAndServerState" resultType="java.lang.Integer" parameterType="java.lang.String">
+    select
+    count(id)
+    from demand_server
+    where user_no = #{userNo}
+    and demand_state = #{serverState}
+  </select>
+</mapper>

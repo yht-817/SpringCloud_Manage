@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.InformationEvaluateMapper">
+    <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.InformationEvaluate">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="information_no" property="informationNo" jdbcType="VARCHAR"/>
+        <result column="evaluate_no" property="evaluateNo" jdbcType="VARCHAR"/>
+        <result column="user_no" property="userNo" jdbcType="VARCHAR"/>
+        <result column="evaluate_date" property="evaluateDate" jdbcType="TIMESTAMP"/>
+        <result column="evaluate_content" property="evaluateContent" jdbcType="VARCHAR"/>
+        <result column="praise_num" property="praiseNum" jdbcType="INTEGER"/>
+        <result column="reply_num" property="replyNum" jdbcType="INTEGER"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, information_no, evaluate_no, user_no, evaluate_date, evaluate_content, praise_num,
+    reply_num
+  </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from information_evaluate
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from information_evaluate
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+    <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.InformationEvaluate">
+    insert into information_evaluate (id, information_no, evaluate_no,
+      user_no, evaluate_date, evaluate_content,
+      praise_num, reply_num)
+    values (#{id,jdbcType=VARCHAR}, #{informationNo,jdbcType=VARCHAR}, #{evaluateNo,jdbcType=VARCHAR},
+      #{userNo,jdbcType=VARCHAR}, #{evaluateDate,jdbcType=TIMESTAMP}, #{evaluateContent,jdbcType=VARCHAR},
+      #{praiseNum,jdbcType=INTEGER}, #{replyNum,jdbcType=INTEGER})
+  </insert>
+    <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.InformationEvaluate">
+        insert into information_evaluate
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="informationNo != null">
+                information_no,
+            </if>
+            <if test="evaluateNo != null">
+                evaluate_no,
+            </if>
+            <if test="userNo != null">
+                user_no,
+            </if>
+            <if test="evaluateDate != null">
+                evaluate_date,
+            </if>
+            <if test="evaluateContent != null">
+                evaluate_content,
+            </if>
+            <if test="praiseNum != null">
+                praise_num,
+            </if>
+            <if test="replyNum != null">
+                reply_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="informationNo != null">
+                #{informationNo,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateNo != null">
+                #{evaluateNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userNo != null">
+                #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateDate != null">
+                #{evaluateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evaluateContent != null">
+                #{evaluateContent,jdbcType=VARCHAR},
+            </if>
+            <if test="praiseNum != null">
+                #{praiseNum,jdbcType=INTEGER},
+            </if>
+            <if test="replyNum != null">
+                #{replyNum,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.InformationEvaluate">
+        update information_evaluate
+        <set>
+            <if test="informationNo != null">
+                information_no = #{informationNo,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateNo != null">
+                evaluate_no = #{evaluateNo,jdbcType=VARCHAR},
+            </if>
+            <if test="userNo != null">
+                user_no = #{userNo,jdbcType=VARCHAR},
+            </if>
+            <if test="evaluateDate != null">
+                evaluate_date = #{evaluateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="evaluateContent != null">
+                evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+            </if>
+            <if test="praiseNum != null">
+                praise_num = #{praiseNum,jdbcType=INTEGER},
+            </if>
+            <if test="replyNum != null">
+                reply_num = #{replyNum,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.InformationEvaluate">
+    update information_evaluate
+    set information_no = #{informationNo,jdbcType=VARCHAR},
+      evaluate_no = #{evaluateNo,jdbcType=VARCHAR},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      evaluate_date = #{evaluateDate,jdbcType=TIMESTAMP},
+      evaluate_content = #{evaluateContent,jdbcType=VARCHAR},
+      praise_num = #{praiseNum,jdbcType=INTEGER},
+      reply_num = #{replyNum,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+    <!--分页获取资讯评论列表-->
+    <select id="getPageList" resultType="map">
+        SELECT
+        ie.id, ie.information_no, ie.evaluate_no, ie.user_no, ie.evaluate_date, ie.evaluate_content, ie.praise_num,ie.reply_num, ui.user_head, ui.nike_name,
+        (select count(1) from information_evaluate_parise a where ie.evaluate_no = a.evaluate_no and a.user_no = #{userno}) AS click
+        FROM information_evaluate ie
+        LEFT JOIN user_info ui
+        ON ie.user_no = ui.user_no
+        WHERE ie.information_no = #{informationNo}
+        order by ie.evaluate_date desc
+        limit #{start},#{end}
+    </select>
+
+
+    <!--根据评论编码增加评论的回复数-->
+    <update id="updateReplyNum" parameterType="map">
+        update information_evaluate
+        set
+        <choose>
+            <when test="sign == 0">
+                reply_num = reply_num - 1
+            </when>
+            <otherwise>
+                reply_num = reply_num + 1
+            </otherwise>
+        </choose>
+        where
+        1=1
+        <if test="informationNo != null">
+            AND information_no = #{informationNo,jdbcType=VARCHAR}
+        </if>
+        <if test="evaluateNo != null">
+            AND evaluate_no = #{evaluateNo,jdbcType=VARCHAR}
+        </if>
+    </update>
+
+
+    <select id="getByEvaluateNoAndInformationNo" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from information_evaluate
+        where information_no = #{informationNo,jdbcType=VARCHAR}
+        and evaluate_no = #{evaluateNo,jdbcType=VARCHAR}
+    </select>
+
+    <!--回复父评论子评论-->
+    <insert id="add_Hfdata">
+        insert into information_reply (id, information_no, evaluate_no, user_no, reply_date, reply_content, reply_no)
+        values (#{id},#{informationNo},#{evaluatenohf},#{userNo},#{datatime},#{evaluateContent},#{evaluateNo})
+    </insert>
+
+    <!--对资讯的文章进行回复-->
+    <insert id="add_Zxhf">
+        insert into information_evaluate (id, information_no, evaluate_no, user_no, evaluate_date, evaluate_content)
+        values (#{id},#{informationNo},#{evaluateNo},#{userNo},#{datatime},#{evaluateContent})
+    </insert>
+
+    <!--评论咨询文章成功对评论记录数加1 -->
+    <update id="updateComments">
+        update information set evaluate_num = evaluate_num + 1 where information_no = #{informationNo}
+    </update>
+
+    <!--对评论的进行再次评价然后加1-->
+    <update id="updateUserComments">
+        update information_evaluate set reply_num = reply_num + 1 where evaluate_no = #{evaluateNo}
+    </update>
+
+    <!--查询用户信息数据-->
+    <select id="queryUserInfo" resultType="map">
+        select user_head,nike_name from user_info where user_no = #{userNo}
+    </select>
+
+    <!--删除点赞-->
+    <delete id="deleteCancel">
+        DELETE FROM information_evaluate_parise WHERE information_no = #{informationNo} AND evaluate_no = #{evaluateNo} AND user_no = #{userNo}
+    </delete>
+    <!--点赞-->
+
+    <insert id="addCancel">
+        insert into information_evaluate_parise (id, information_no, evaluate_no, user_no,parise_date) values (#{id},#{informationNo},#{evaluateNo},#{userNo},#{datatime})
+    </insert>
+
+    <!--获取子评论的的标题父评论-->
+    <select id="getByEvaluateNo" resultType="map">
+        SELECT
+        ie.id, ie.information_no, ie.evaluate_no, ie.user_no, ie.evaluate_date, ie.evaluate_content,ie.reply_num,ie.praise_num,ui.user_head, ui.nike_name,
+        (select count(1) from information_evaluate_parise a where ie.evaluate_no = a.evaluate_no and a.user_no = #{userNo}) AS click
+        FROM information_evaluate ie
+        LEFT JOIN user_info ui
+        ON ie.user_no = ui.user_no
+        WHERE ie.information_no = #{informationNo} and ie.evaluate_no = #{evaluateNo}
+    </select>
+
+    <update id="updateLikePlus">
+        update information_evaluate set praise_num = praise_num + 1 where evaluate_no = #{evaluateNo}
+    </update>
+
+    <update id="updateLikeMinus">
+        update information_evaluate set praise_num = praise_num + 1 where evaluate_no = #{evaluateNo}
+    </update>
+</mapper>

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.chat.server.dao.FriendGroupMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.chat.bean.FriendGroup">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="group_no" jdbcType="VARCHAR" property="groupNo" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="group_node" jdbcType="VARCHAR" property="groupNode" />
+    <result column="group_state" jdbcType="VARCHAR" property="groupState" />
+    <result column="if_pay_group" jdbcType="VARCHAR" property="ifPayGroup" />
+    <result column="group_head" jdbcType="VARCHAR" property="groupHead" />
+    <result column="pay_amount" jdbcType="DECIMAL" property="payAmount" />
+    <result column="label_no" jdbcType="VARCHAR" property="labelNo" />
+    <result column="label_name" jdbcType="VARCHAR" property="labelName" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, group_no, group_name, create_date, user_no, group_node, group_state, if_pay_group, 
+    group_head, pay_amount, label_no, label_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from friend_group
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from friend_group
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.chat.bean.FriendGroup">
+    insert into friend_group (id, group_no, group_name, 
+      create_date, user_no, group_node, 
+      group_state, if_pay_group, group_head, 
+      pay_amount, label_no, label_name
+      )
+    values (#{id,jdbcType=VARCHAR}, #{groupNo,jdbcType=VARCHAR}, #{groupName,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{userNo,jdbcType=VARCHAR}, #{groupNode,jdbcType=VARCHAR}, 
+      #{groupState,jdbcType=VARCHAR}, #{ifPayGroup,jdbcType=VARCHAR}, #{groupHead,jdbcType=VARCHAR}, 
+      #{payAmount,jdbcType=DECIMAL}, #{labelNo,jdbcType=VARCHAR}, #{labelName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.chat.bean.FriendGroup">
+    insert into friend_group
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="groupNo != null">
+        group_no,
+      </if>
+      <if test="groupName != null">
+        group_name,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="groupNode != null">
+        group_node,
+      </if>
+      <if test="groupState != null">
+        group_state,
+      </if>
+      <if test="ifPayGroup != null">
+        if_pay_group,
+      </if>
+      <if test="groupHead != null">
+        group_head,
+      </if>
+      <if test="payAmount != null">
+        pay_amount,
+      </if>
+      <if test="labelNo != null">
+        label_no,
+      </if>
+      <if test="labelName != null">
+        label_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNo != null">
+        #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNode != null">
+        #{groupNode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupState != null">
+        #{groupState,jdbcType=VARCHAR},
+      </if>
+      <if test="ifPayGroup != null">
+        #{ifPayGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="groupHead != null">
+        #{groupHead,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null">
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="labelNo != null">
+        #{labelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="labelName != null">
+        #{labelName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.chat.bean.FriendGroup">
+    update friend_group
+    <set>
+      <if test="groupNo != null">
+        group_no = #{groupNo,jdbcType=VARCHAR},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="groupNode != null">
+        group_node = #{groupNode,jdbcType=VARCHAR},
+      </if>
+      <if test="groupState != null">
+        group_state = #{groupState,jdbcType=VARCHAR},
+      </if>
+      <if test="ifPayGroup != null">
+        if_pay_group = #{ifPayGroup,jdbcType=VARCHAR},
+      </if>
+      <if test="groupHead != null">
+        group_head = #{groupHead,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null">
+        pay_amount = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="labelNo != null">
+        label_no = #{labelNo,jdbcType=VARCHAR},
+      </if>
+      <if test="labelName != null">
+        label_name = #{labelName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.chat.bean.FriendGroup">
+    update friend_group
+    set group_no = #{groupNo,jdbcType=VARCHAR},
+      group_name = #{groupName,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      user_no = #{userNo,jdbcType=VARCHAR},
+      group_node = #{groupNode,jdbcType=VARCHAR},
+      group_state = #{groupState,jdbcType=VARCHAR},
+      if_pay_group = #{ifPayGroup,jdbcType=VARCHAR},
+      group_head = #{groupHead,jdbcType=VARCHAR},
+      pay_amount = #{payAmount,jdbcType=DECIMAL},
+      label_no = #{labelNo,jdbcType=VARCHAR},
+      label_name = #{labelName,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="findByGroupNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_group
+    where group_no = #{groupNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryPageSearchGroup" resultType="net.sunwukong.www.chat.vo.QueryGroup">
+    select
+    id,group_no,group_name,group_head,group_node
+    from friend_group
+    where group_state = #{groupState,jdbcType=VARCHAR}
+    <if test="content !=null">
+      AND (group_name LIKE CONCAT('%',#{content,jdbcType=VARCHAR},'%')
+      OR label_name LIKE CONCAT('%',#{content,jdbcType=VARCHAR},'%'))
+    </if>
+    <if test="size != 0">
+      limit #{start},#{size}
+    </if>
+  </select>
+
+  <select id="findByGroupNoAndUserNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from friend_group
+    where group_no = #{groupNo,jdbcType=VARCHAR}
+    and user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryGroupDetails" parameterType="java.lang.String" resultType="net.sunwukong.www.chat.vo.QueryGroupDetails">
+    select
+    <include refid="Base_Column_List" />
+    from friend_group
+    where group_no = #{groupNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

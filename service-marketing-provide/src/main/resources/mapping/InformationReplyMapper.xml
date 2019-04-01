@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.InformationReplyMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.InformationReply">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="information_no" jdbcType="VARCHAR" property="informationNo" />
+    <result column="reply_no" jdbcType="VARCHAR" property="replyNo" />
+    <result column="evaluate_no" jdbcType="VARCHAR" property="evaluateNo" />
+    <result column="from_user_no" jdbcType="VARCHAR" property="fromUserNo" />
+    <result column="reply_date" jdbcType="TIMESTAMP" property="replyDate" />
+    <result column="reply_content" jdbcType="VARCHAR" property="replyContent" />
+    <result column="to_user_no" jdbcType="VARCHAR" property="toUserNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, information_no, reply_no, evaluate_no, from_user_no, reply_date, reply_content, 
+    to_user_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from information_reply
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from information_reply
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.InformationReply">
+    insert into information_reply (id, information_no, reply_no, 
+      evaluate_no, from_user_no, reply_date, 
+      reply_content, to_user_no)
+    values (#{id,jdbcType=VARCHAR}, #{informationNo,jdbcType=VARCHAR}, #{replyNo,jdbcType=VARCHAR}, 
+      #{evaluateNo,jdbcType=VARCHAR}, #{fromUserNo,jdbcType=VARCHAR}, #{replyDate,jdbcType=TIMESTAMP}, 
+      #{replyContent,jdbcType=VARCHAR}, #{toUserNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.InformationReply">
+    insert into information_reply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="informationNo != null">
+        information_no,
+      </if>
+      <if test="replyNo != null">
+        reply_no,
+      </if>
+      <if test="evaluateNo != null">
+        evaluate_no,
+      </if>
+      <if test="fromUserNo != null">
+        from_user_no,
+      </if>
+      <if test="replyDate != null">
+        reply_date,
+      </if>
+      <if test="replyContent != null">
+        reply_content,
+      </if>
+      <if test="toUserNo != null">
+        to_user_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="informationNo != null">
+        #{informationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="replyNo != null">
+        #{replyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateNo != null">
+        #{evaluateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserNo != null">
+        #{fromUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDate != null">
+        #{replyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyContent != null">
+        #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="toUserNo != null">
+        #{toUserNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.InformationReply">
+    update information_reply
+    <set>
+      <if test="informationNo != null">
+        information_no = #{informationNo,jdbcType=VARCHAR},
+      </if>
+      <if test="replyNo != null">
+        reply_no = #{replyNo,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateNo != null">
+        evaluate_no = #{evaluateNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserNo != null">
+        from_user_no = #{fromUserNo,jdbcType=VARCHAR},
+      </if>
+      <if test="replyDate != null">
+        reply_date = #{replyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="replyContent != null">
+        reply_content = #{replyContent,jdbcType=VARCHAR},
+      </if>
+      <if test="toUserNo != null">
+        to_user_no = #{toUserNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.InformationReply">
+    update information_reply
+    set information_no = #{informationNo,jdbcType=VARCHAR},
+      reply_no = #{replyNo,jdbcType=VARCHAR},
+      evaluate_no = #{evaluateNo,jdbcType=VARCHAR},
+      from_user_no = #{fromUserNo,jdbcType=VARCHAR},
+      reply_date = #{replyDate,jdbcType=TIMESTAMP},
+      reply_content = #{replyContent,jdbcType=VARCHAR},
+      to_user_no = #{toUserNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!-- 分页查询子评论列表 -->
+  <select id="queryPageReplyList"  resultType="map">
+    SELECT
+    ir.id,fromUser.user_no as fromUserNo,fromUser.user_head as fromUserHead,fromUser.nike_name as fromUserNike,
+    toUser.user_no as toUserNo,toUser.nike_name as toUserNike,ir.reply_content,ir.reply_date
+    FROM information_reply ir
+    LEFT JOIN user_info fromUser ON ir.from_user_no = fromUser.user_no
+    LEFT JOIN user_info toUser ON ir.to_user_no = toUser.user_no
+    WHERE ir.evaluate_no = #{evaluateNo}
+    order by ir.reply_date desc
+    limit #{start},#{end}
+
+  </select>
+</mapper>

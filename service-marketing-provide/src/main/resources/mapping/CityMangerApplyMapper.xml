@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.marketing.server.dao.CityMangerApplyMapper">
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.CityMangerApply">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_no" jdbcType="VARCHAR" property="userNo" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="self_evaluation" jdbcType="VARCHAR" property="selfEvaluation" />
+    <result column="city_no" jdbcType="VARCHAR" property="cityNo" />
+    <result column="city_name" jdbcType="VARCHAR" property="cityName" />
+    <result column="apply_date" jdbcType="TIMESTAMP" property="applyDate" />
+    <result column="contract_address" jdbcType="VARCHAR" property="contractAddress" />
+    <result column="longitude" jdbcType="VARCHAR" property="longitude" />
+    <result column="latitude" jdbcType="VARCHAR" property="latitude" />
+    <result column="audit_state" jdbcType="VARCHAR" property="auditState" />
+    <result column="audit_date" jdbcType="TIMESTAMP" property="auditDate" />
+    <result column="user_no_platform" jdbcType="VARCHAR" property="userNoPlatform" />
+    <result column="user_name_platform" jdbcType="VARCHAR" property="userNamePlatform" />
+    <result column="sex_no" jdbcType="VARCHAR" property="sexNo" />
+    <result column="phone_no" jdbcType="VARCHAR" property="phoneNo" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, user_no, age, self_evaluation, city_no, city_name, apply_date, contract_address, 
+    longitude, latitude, audit_state, audit_date, user_no_platform, user_name_platform, 
+    sex_no, phone_no
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from city_manger_apply
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from city_manger_apply
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.CityMangerApply">
+    insert into city_manger_apply (id, user_no, age, 
+      self_evaluation, city_no, city_name, 
+      apply_date, contract_address, longitude, 
+      latitude, audit_state, audit_date, 
+      user_no_platform, user_name_platform, sex_no, 
+      phone_no)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{selfEvaluation,jdbcType=VARCHAR}, #{cityNo,jdbcType=VARCHAR}, #{cityName,jdbcType=VARCHAR}, 
+      #{applyDate,jdbcType=TIMESTAMP}, #{contractAddress,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{auditState,jdbcType=VARCHAR}, #{auditDate,jdbcType=TIMESTAMP}, 
+      #{userNoPlatform,jdbcType=VARCHAR}, #{userNamePlatform,jdbcType=VARCHAR}, #{sexNo,jdbcType=VARCHAR}, 
+      #{phoneNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.CityMangerApply">
+    insert into city_manger_apply
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userNo != null">
+        user_no,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="selfEvaluation != null">
+        self_evaluation,
+      </if>
+      <if test="cityNo != null">
+        city_no,
+      </if>
+      <if test="cityName != null">
+        city_name,
+      </if>
+      <if test="applyDate != null">
+        apply_date,
+      </if>
+      <if test="contractAddress != null">
+        contract_address,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="auditState != null">
+        audit_state,
+      </if>
+      <if test="auditDate != null">
+        audit_date,
+      </if>
+      <if test="userNoPlatform != null">
+        user_no_platform,
+      </if>
+      <if test="userNamePlatform != null">
+        user_name_platform,
+      </if>
+      <if test="sexNo != null">
+        sex_no,
+      </if>
+      <if test="phoneNo != null">
+        phone_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="selfEvaluation != null">
+        #{selfEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null">
+        #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null">
+        #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractAddress != null">
+        #{contractAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        #{auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null">
+        #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userNoPlatform != null">
+        #{userNoPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="userNamePlatform != null">
+        #{userNamePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="sexNo != null">
+        #{sexNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null">
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.CityMangerApply">
+    update city_manger_apply
+    <set>
+      <if test="userNo != null">
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="selfEvaluation != null">
+        self_evaluation = #{selfEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="cityNo != null">
+        city_no = #{cityNo,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null">
+        city_name = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="applyDate != null">
+        apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="contractAddress != null">
+        contract_address = #{contractAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="auditState != null">
+        audit_state = #{auditState,jdbcType=VARCHAR},
+      </if>
+      <if test="auditDate != null">
+        audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userNoPlatform != null">
+        user_no_platform = #{userNoPlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="userNamePlatform != null">
+        user_name_platform = #{userNamePlatform,jdbcType=VARCHAR},
+      </if>
+      <if test="sexNo != null">
+        sex_no = #{sexNo,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null">
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.CityMangerApply">
+    update city_manger_apply
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      self_evaluation = #{selfEvaluation,jdbcType=VARCHAR},
+      city_no = #{cityNo,jdbcType=VARCHAR},
+      city_name = #{cityName,jdbcType=VARCHAR},
+      apply_date = #{applyDate,jdbcType=TIMESTAMP},
+      contract_address = #{contractAddress,jdbcType=VARCHAR},
+      longitude = #{longitude,jdbcType=VARCHAR},
+      latitude = #{latitude,jdbcType=VARCHAR},
+      audit_state = #{auditState,jdbcType=VARCHAR},
+      audit_date = #{auditDate,jdbcType=TIMESTAMP},
+      user_no_platform = #{userNoPlatform,jdbcType=VARCHAR},
+      user_name_platform = #{userNamePlatform,jdbcType=VARCHAR},
+      sex_no = #{sexNo,jdbcType=VARCHAR},
+      phone_no = #{phoneNo,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--通过用户编码获取运营官申请表信息-->
+  <select id="getCityMangerApplyByUserNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from city_manger_apply
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getCityOfficerList" parameterType="java.lang.String" resultType="map">
+    select
+    a.user_no,b.user_head,b.nike_name,c.code_name as user_type,a.self_evaluation
+    from city_manger_apply a
+    LEFT JOIN user_info b ON a.user_no = b.user_no
+    LEFT JOIN sys_code c ON b.user_type = c.code_no
+    where a.audit_state = #{auditState,jdbcType=VARCHAR}
+    and a.city_no = #{cityNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByUserNoAndAuditState" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from city_manger_apply
+    where user_no = #{userNo,jdbcType=VARCHAR}
+    AND audit_state = #{auditState,jdbcType=VARCHAR}
+  </select>
+
+</mapper>

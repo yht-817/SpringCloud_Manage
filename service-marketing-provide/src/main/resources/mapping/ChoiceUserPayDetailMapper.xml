@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.marketing.server.dao.ChoiceUserPayDetailMapper" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.marketing.bean.ChoiceUserPayDetail" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="pay_no" property="payNo" jdbcType="VARCHAR" />
+    <result column="pay_mode_no" property="payModeNo" jdbcType="VARCHAR" />
+    <result column="pay_amount" property="payAmount" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, pay_no, pay_mode_no, pay_amount
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from choice_user_pay_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from choice_user_pay_detail
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="net.sunwukong.www.marketing.bean.ChoiceUserPayDetail" >
+    insert into choice_user_pay_detail (id, user_no, pay_no, 
+      pay_mode_no, pay_amount)
+    values (#{id,jdbcType=VARCHAR}, #{userNo,jdbcType=VARCHAR}, #{payNo,jdbcType=VARCHAR}, 
+      #{payModeNo,jdbcType=VARCHAR}, #{payAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceUserPayDetail" >
+    insert into choice_user_pay_detail
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userNo != null" >
+        user_no,
+      </if>
+      <if test="payNo != null" >
+        pay_no,
+      </if>
+      <if test="payModeNo != null" >
+        pay_mode_no,
+      </if>
+      <if test="payAmount != null" >
+        pay_amount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userNo != null" >
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payNo != null" >
+        #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payModeNo != null" >
+        #{payModeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="net.sunwukong.www.marketing.bean.ChoiceUserPayDetail" >
+    update choice_user_pay_detail
+    <set >
+      <if test="userNo != null" >
+        user_no = #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payNo != null" >
+        pay_no = #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payModeNo != null" >
+        pay_mode_no = #{payModeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="payAmount != null" >
+        pay_amount = #{payAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="net.sunwukong.www.marketing.bean.ChoiceUserPayDetail" >
+    update choice_user_pay_detail
+    set user_no = #{userNo,jdbcType=VARCHAR},
+      pay_no = #{payNo,jdbcType=VARCHAR},
+      pay_mode_no = #{payModeNo,jdbcType=VARCHAR},
+      pay_amount = #{payAmount,jdbcType=DECIMAL}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

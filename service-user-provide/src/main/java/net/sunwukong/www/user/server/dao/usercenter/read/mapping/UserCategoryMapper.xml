@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.read.UserCategoryMapperRead" >
+  <resultMap id="BaseResultMap" type="net.sunwukong.www.user.bean.UserCategory" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_no" property="userNo" jdbcType="VARCHAR" />
+    <result column="category_one_no" property="categoryOneNo" jdbcType="VARCHAR" />
+    <result column="category_two_no" property="categoryTwoNo" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_no, category_one_no, category_two_no
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_category
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findByUserNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from user_category
+    where user_no = #{userNo,jdbcType=VARCHAR}
+  </select>
+</mapper>

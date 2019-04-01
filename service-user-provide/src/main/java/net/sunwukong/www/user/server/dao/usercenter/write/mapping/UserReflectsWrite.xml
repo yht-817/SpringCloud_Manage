@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.sunwukong.www.user.server.dao.usercenter.write.UserReflectsWrite">
+    <!--添加用户体现的账号-->
+    <insert id="addReflectMeth">
+        INSERT INTO pay_meth (id,user_no,user_name,user_addres,user_phone,user_account,bank_name)
+                     VALUES(#{id},#{userNo},#{userName},#{userAddress},#{userPhone},#{userAccount},#{bankName})
+    </insert>
+    <!--插入用户购买的信息-->
+    <insert id="addSQinfo">
+        INSERT INTO pay_apply (id,user_no,apply_no,apply_amount,execution_stat,change_date,user_account,user_phone,user_name,user_addres,bank_name)
+                     VALUES(#{id},#{userNo},#{sqno},#{amount},#{sqstates},#{data},#{userAccount},#{userPhone},#{userName},#{userAddres},#{bankName})
+    </insert>
+    <!--删除当前用户的卡号-->
+    <delete id="deleteInfo">
+        DELETE FROM pay_meth WHERE user_no = #{userNo}
+    </delete>
+    <!--添加提现的日志-->
+    <insert id="addLog">
+        INSERT INTO user_account_log (id,user_no,change_mode,change_amount,change_date,change_no,change_remark)
+                     VALUES(#{id},#{userNo},#{changType},#{amount},#{data},#{sqno},#{changeremark})
+    </insert>
+    <!--减去当前的金额-->
+    <update id="subtractionTx">
+         UPDATE user_account SET cash_account_amount = cash_account_amount - #{amount} WHERE user_no = #{userNo}
+    </update>
+    <!--加上失败后还原的金额-->
+    <update id="addJe">
+         UPDATE user_account SET cash_account_amount = cash_account_amount + #{amount} WHERE user_no = #{userNo}
+    </update>
+    <!--删除当前提现日志-->
+    <delete id="deleteLog">
+        DELETE FROM user_account_log WHERE change_no = #{sqno}
+    </delete>
+</mapper>
